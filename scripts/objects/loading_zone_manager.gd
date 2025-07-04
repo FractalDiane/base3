@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func run() -> void:
 	var scenes: Array[String] = [scene_up, scene_down, scene_left, scene_right]
-	for i in range(4):
+	for i in range(len(scenes)):
 		if not scenes[i].is_empty():
 			var loading_zone := LOADING_ZONE.instantiate() as LoadingZone
 			loading_zone.setup_from_manager(scenes[i], DIRECTIONS[i])

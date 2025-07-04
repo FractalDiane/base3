@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1n052gvf6hln"]
+
+[ext_resource type="Texture2D" uid="uid://bwfvwsddw5mpq" path="res://sprites/ui/textbox.png" id="1_npdsx"]
+[ext_resource type="Script" uid="uid://dc7a6ax0cjsp3" path="res://scripts/ui/dialogue_box.gd" id="2_taf07"]
+[ext_resource type="FontFile" uid="uid://c5b7ngg5cmsth" path="res://fonts/QuinqueFive.ttf" id="3_xlpos"]
+[ext_resource type="AudioStream" uid="uid://5lutsp6nvcaq" path="res://audio/sfx/ui/textbox1.wav" id="4_evirh"]
+[ext_resource type="AudioStream" uid="uid://4rmixj0eu42" path="res://audio/sfx/ui/textbox2.wav" id="5_4von1"]
+[ext_resource type="AudioStream" uid="uid://5am6ny8cdai6" path="res://audio/sfx/ui/text.wav" id="6_4von1"]
+[ext_resource type="AudioStream" uid="uid://bbejqk6bktt66" path="res://audio/sfx/ui/text_done.wav" id="7_4f7c4"]
+
+[node name="DialogueBox" type="NinePatchRect"]
+offset_right = 6.0
+offset_bottom = 6.0
+texture = ExtResource("1_npdsx")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+script = ExtResource("2_taf07")
+
+[node name="Text" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 47.0
+offset_bottom = 47.0
+theme_override_fonts/normal_font = ExtResource("3_xlpos")
+theme_override_font_sizes/normal_font_size = 5
+bbcode_enabled = true
+text = "test"
+scroll_active = false
+visible_characters = 0
+visible_characters_behavior = 1
+visible_ratio = 0.0
+
+[node name="SoundOpen1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_evirh")
+
+[node name="SoundOpen2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_4von1")
+
+[node name="SoundText" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_4von1")
+max_polyphony = 32
+
+[node name="SoundTextFinished" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_4f7c4")
+max_polyphony = 4
+
+[node name="TimerText" type="Timer" parent="."]
+wait_time = 0.05
+
+[node name="TimerSoundOpen" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="TimerText" to="." method="_on_timer_text_timeout"]
+[connection signal="timeout" from="TimerSoundOpen" to="SoundOpen2" method="play"]

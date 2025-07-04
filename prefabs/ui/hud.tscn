@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://267vnt8lmiog"]
+[gd_scene load_steps=17 format=3 uid="uid://267vnt8lmiog"]
 
 [ext_resource type="Texture2D" uid="uid://b0npg1055smae" path="res://sprites/ui/ui.png" id="1_2odaw"]
 [ext_resource type="Script" uid="uid://84irekq3v83o" path="res://scripts/ui/hud.gd" id="1_halsq"]
 [ext_resource type="Texture2D" uid="uid://1bvqoodd5uyi" path="res://sprites/ui/life.png" id="2_15m52"]
 [ext_resource type="Texture2D" uid="uid://ch0efrs4xh6xt" path="res://sprites/ui/corr.png" id="3_cxp5x"]
+[ext_resource type="FontFile" uid="uid://c5b7ngg5cmsth" path="res://fonts/QuinqueFive.ttf" id="4_ektdj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxp5x"]
 bg_color = Color(0, 0, 0, 1)
@@ -108,7 +109,8 @@ texture = ExtResource("1_2odaw")
 stretch_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="TextLife" type="TextureRect" parent="HUD/Base"]
+[node name="TextLifeO" type="TextureRect" parent="HUD/Base"]
+visible = false
 layout_mode = 0
 offset_left = 3.0
 offset_top = 5.0
@@ -118,24 +120,33 @@ texture = ExtResource("2_15m52")
 stretch_mode = 2
 metadata/_edit_lock_ = true
 
+[node name="TextLife" type="Label" parent="HUD/Base"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 5.0
+offset_right = 43.0
+offset_bottom = 28.0
+theme_override_fonts/font = ExtResource("4_ektdj")
+theme_override_font_sizes/font_size = 5
+text = "life"
+
 [node name="BarLifeBack" type="ProgressBar" parent="HUD/Base"]
 layout_mode = 0
-offset_left = 21.0
+offset_left = 28.0
 offset_top = 5.0
-offset_right = 33.0
+offset_right = 40.0
 offset_bottom = 11.0
 theme_override_styles/background = SubResource("StyleBoxFlat_cxp5x")
 max_value = 8.0
 step = 1.0
 show_percentage = false
-metadata/_edit_lock_ = true
 
 [node name="BarLife" type="ProgressBar" parent="HUD/Base"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 22.0
+offset_left = 29.0
 offset_top = 6.0
-offset_right = 32.0
+offset_right = 39.0
 offset_bottom = 10.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_halsq")
 theme_override_styles/fill = SubResource("StyleBoxFlat_halsq")
@@ -145,7 +156,8 @@ value = 10.0
 rounded = true
 show_percentage = false
 
-[node name="TextCorr" type="TextureRect" parent="HUD/Base"]
+[node name="TextCorrO" type="TextureRect" parent="HUD/Base"]
+visible = false
 layout_mode = 0
 offset_left = 54.0
 offset_top = 5.0
@@ -154,6 +166,16 @@ offset_bottom = 11.0
 texture = ExtResource("3_cxp5x")
 stretch_mode = 2
 metadata/_edit_lock_ = true
+
+[node name="TextCorr" type="Label" parent="HUD/Base"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 5.0
+offset_right = 90.0
+offset_bottom = 28.0
+theme_override_fonts/font = ExtResource("4_ektdj")
+theme_override_font_sizes/font_size = 5
+text = "corr"
 
 [node name="BarCorrBack" type="ProgressBar" parent="HUD/Base"]
 layout_mode = 0

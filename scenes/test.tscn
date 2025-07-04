@@ -1,10 +1,25 @@
-[gd_scene load_steps=4 format=4 uid="uid://bjm8qrntuthtd"]
+[gd_scene load_steps=6 format=4 uid="uid://bjm8qrntuthtd"]
 
 [ext_resource type="TileSet" uid="uid://b7aqm2ary1clb" path="res://resources/tiles/tileset.tres" id="1_74lek"]
 [ext_resource type="Script" uid="uid://cw5pjvxl3m3ge" path="res://scripts/utils/editor_only.gd" id="3_74lek"]
 [ext_resource type="Texture2D" uid="uid://b0npg1055smae" path="res://sprites/ui/ui.png" id="3_iyx0m"]
+[ext_resource type="PackedScene" uid="uid://d1n052gvf6hln" path="res://prefabs/ui/dialogue_box.tscn" id="4_74lek"]
+
+[sub_resource type="GDScript" id="GDScript_74lek"]
+script/source = "extends Node2D
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"move_down\"):
+		EventPlaybackSubsystem.play_event(preload(\"res://dialogue/dialogue_test.res\"), self)
+
+func _on_timer_timeout() -> void:
+	#$DialogueBox.start(\"I regret to inform you this is a test BOOOOOOOOOM\", Rect2i(32, 48, 128, 48))
+	pass
+	EventPlaybackSubsystem.play_event(preload(\"res://dialogue/dialogue_test.res\"), self)
+"
 
 [node name="Test" type="Node2D"]
+script = SubResource("GDScript_74lek")
 
 [node name="Tileset" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAAAAYAAAAAAAAAAAABAAYAAAAAAAAAAAACAAYAAAAAAAAAAAADAAYAAAAAAAAAAAAEAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAALAAUAAAAAAAAAAAALAAQAAAAAAAAAAAALAAMAAAAAAAAAAAALAAIAAAAAAAAAAAALAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAAKAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAQAAAAAAAAAAAADAAMAAAAAAAAAAAACAAQAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAMAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAAAAAA=")
@@ -16,3 +31,16 @@ position = Vector2(0, 112)
 texture = ExtResource("3_iyx0m")
 centered = false
 script = ExtResource("3_74lek")
+
+[node name="DialogueBox" parent="." instance=ExtResource("4_74lek")]
+visible = false
+offset_left = 112.0
+offset_top = 48.0
+offset_right = 118.0
+offset_bottom = 54.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

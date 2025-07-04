@@ -35,8 +35,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if scrolling:
 		var new_scene_packed := ResourceLoader.load_threaded_get(target_scene)
 		var new_scene := (new_scene_packed as PackedScene).instantiate() as BaseScene
-		
-		var old_scene := get_tree().current_scene as BaseScene
 
 		get_tree().root.add_child.call_deferred(new_scene)
 		get_tree().root.move_child.call_deferred(new_scene, -2)
@@ -53,6 +51,7 @@ func _on_body_entered(body: Node2D) -> void:
 		var current_position_player := player.position
 		tween.tween_property(player, ^"position", current_position_player + -shape_normal * 16, 1.0)
 		
+		var old_scene := get_tree().current_scene as BaseScene
 		var current_position_scene_from := old_scene.position
 		tween.tween_property(old_scene, ^"position", current_position_scene_from - new_scene_position, 1.0)
 		
