@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ier2fmcfi2e"]
+
+[ext_resource type="Script" uid="uid://d04gu6kqxgexn" path="res://scripts/objects/player_start.gd" id="1_htmrm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_le3q7"]
+radius = 5.0
+
+[node name="PlayerStart" type="Marker2D"]
+script = ExtResource("1_htmrm")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_le3q7")
+debug_color = Color(0.078125, 1, 0, 0.42)

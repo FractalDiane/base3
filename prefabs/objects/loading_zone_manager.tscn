@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuqv0dpu1ibc8"]
+
+[ext_resource type="Script" uid="uid://bicrtabco5oqf" path="res://scripts/objects/loading_zone_manager.gd" id="1_wfsby"]
+
+[node name="LoadingZoneManager" type="Node"]
+script = ExtResource("1_wfsby")
