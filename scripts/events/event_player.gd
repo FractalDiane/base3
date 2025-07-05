@@ -28,9 +28,10 @@ var ink_story: InkStory = null
 
 ###############################################################################
 
-func _init(event: InkStoryCompiled, caller_: Node) -> void:
+func _init(event: InkStoryCompiled, caller_: Node, text_box_size: Rect2i) -> void:
 	ink_story_file = event
 	caller = caller_
+	current_dialogue_size = text_box_size
 	
 	ink_story = InkStory.new()
 	ink_story.load_compiled_file(event)

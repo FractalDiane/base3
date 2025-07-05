@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://84irekq3v83o" path="res://scripts/ui/hud.gd" id="1_halsq"]
 [ext_resource type="Texture2D" uid="uid://1bvqoodd5uyi" path="res://sprites/ui/life.png" id="2_15m52"]
 [ext_resource type="Texture2D" uid="uid://ch0efrs4xh6xt" path="res://sprites/ui/corr.png" id="3_cxp5x"]
-[ext_resource type="FontFile" uid="uid://c5b7ngg5cmsth" path="res://fonts/QuinqueFive.ttf" id="4_ektdj"]
+[ext_resource type="FontFile" uid="uid://blbxayvxa6x6e" path="res://fonts/QuinqueFive5.ttf" id="4_ektdj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxp5x"]
 bg_color = Color(0, 0, 0, 1)

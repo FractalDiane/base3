@@ -1,8 +1,8 @@
 extends Node
 
-func play_event(event: InkStoryCompiled, caller: Node) -> EventPlayer:
+func play_event(event: InkStoryCompiled, caller: Node, text_box_size := Rect2i()) -> EventPlayer:
 	if event != null:
-		var player := EventPlayer.new(event, caller)
+		var player := EventPlayer.new(event, caller, text_box_size)
 		get_tree().current_scene.add_child(player)
 		
 		PlayerStateSubsystem.push_block_movement_source()

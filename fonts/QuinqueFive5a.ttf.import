@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://b0x8dp3p7fffk"
-path="res://.godot/imported/QuinqueFive.ttf-9efe35e8a7a35294dd254278c58f74c2.fontdata"
+uid="uid://bg81w4mpegr0l"
+path="res://.godot/imported/QuinqueFive5a.ttf-f03bc58fca5cd953245637f92d76dd16.fontdata"
 
 [deps]
 
-source_file="res://fonts/QuinqueFive.ttf"
-dest_files=["res://.godot/imported/QuinqueFive.ttf-9efe35e8a7a35294dd254278c58f74c2.fontdata"]
+source_file="res://fonts/QuinqueFive5a.ttf"
+dest_files=["res://.godot/imported/QuinqueFive5a.ttf-f03bc58fca5cd953245637f92d76dd16.fontdata"]
 
 [params]
 

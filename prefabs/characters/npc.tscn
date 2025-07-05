@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://crqij3yxq457a"]
+
+[ext_resource type="Script" uid="uid://bnjfc7yvufd8t" path="res://scripts/characters/npc.gd" id="1_yjvcv"]
+[ext_resource type="Script" uid="uid://ct5i3iw5prl82" path="res://scripts/components/interaction_component.gd" id="6_ghiw8"]
+[ext_resource type="InkStoryCompiled" uid="uid://mbutp1f0i4in" path="res://dialogue/dialogue_test.res" id="7_6sgs7"]
+
+[node name="NPC" type="CharacterBody2D"]
+collision_layer = 17
+script = ExtResource("1_yjvcv")
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="InteractionComponent" type="Node" parent="."]
+script = ExtResource("6_ghiw8")
+interaction_event = ExtResource("7_6sgs7")
+text_box_position = Rect2i(16, 48, 96, 48)
+
+[connection signal="interaction_started" from="InteractionComponent" to="." method="_on_interaction_component_interaction_started"]

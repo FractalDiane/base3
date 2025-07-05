@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgyqfu1spnepq"
-path="res://.godot/imported/sigil.png-3ac21a84255eed1aa49af5714a23d604.ctex"
+uid="uid://bn65j3j70mmo5"
+path="res://.godot/imported/hero_down_walk2.png-b3da035f0f211b1eb68d2ea0053a6621.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/sigil.png"
-dest_files=["res://.godot/imported/sigil.png-3ac21a84255eed1aa49af5714a23d604.ctex"]
+source_file="res://sprites/characters/hero/hero_down_walk2.png"
+dest_files=["res://.godot/imported/hero_down_walk2.png-b3da035f0f211b1eb68d2ea0053a6621.ctex"]
 
 [params]
 

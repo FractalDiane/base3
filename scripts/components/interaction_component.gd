@@ -1,10 +1,15 @@
 class_name InteractionComponent
 extends Node
 
-signal interaction_started()
+signal interaction_started(player_direction: Enums.Direction)
 signal interaction_finished()
 
 @export var interaction_event: InkStoryCompiled = null
 @export var interaction_selector: InkStoryCompiled = null
 
 @export var text_box_position := Rect2i()
+
+func interact(player_direction: Enums.Direction) -> void:
+	var event := EventPlaybackSubsystem.play_event(interaction_event, self, text_box_position)
+	event.event_finished.connect(interaction_finished.emit.unbind(2))
+	interaction_started.emit(player_direction)

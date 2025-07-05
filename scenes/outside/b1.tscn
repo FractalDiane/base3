@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://e1g0dpmum8d5"]
+[gd_scene load_steps=12 format=4 uid="uid://e1g0dpmum8d5"]
 
 [ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_0nwv4"]
 [ext_resource type="PackedScene" uid="uid://cuqv0dpu1ibc8" path="res://prefabs/objects/loading_zone_manager.tscn" id="1_1jbd1"]
@@ -6,51 +6,23 @@
 [ext_resource type="Texture2D" uid="uid://b0npg1055smae" path="res://sprites/ui/ui.png" id="3_0nwv4"]
 [ext_resource type="Script" uid="uid://cw5pjvxl3m3ge" path="res://scripts/utils/editor_only.gd" id="4_6x1fm"]
 [ext_resource type="PackedScene" uid="uid://ier2fmcfi2e" path="res://prefabs/objects/player_start.tscn" id="5_1jbd1"]
-[ext_resource type="Texture2D" uid="uid://ricb2b8143vu" path="res://sprites/characters/hero/hero_down.png" id="7_bhq45"]
-[ext_resource type="Script" uid="uid://bnjfc7yvufd8t" path="res://scripts/characters/npc.gd" id="7_uk8j6"]
-[ext_resource type="Texture2D" uid="uid://22k4k5wvopat" path="res://sprites/characters/hero/hero_left.png" id="8_qgr3a"]
-[ext_resource type="Texture2D" uid="uid://bd7t568n6w5o4" path="res://sprites/characters/hero/hero_right.png" id="9_3cos4"]
-[ext_resource type="Texture2D" uid="uid://7wuo0b6w4yqg" path="res://sprites/characters/hero/hero_up.png" id="10_uk8j6"]
-[ext_resource type="Script" uid="uid://ct5i3iw5prl82" path="res://scripts/components/interaction_component.gd" id="11_qgr3a"]
-[ext_resource type="InkStoryCompiled" uid="uid://mbutp1f0i4in" path="res://dialogue/dialogue_test.res" id="12_3cos4"]
+[ext_resource type="PackedScene" uid="uid://crqij3yxq457a" path="res://prefabs/characters/npc.tscn" id="7_6x1fm"]
+[ext_resource type="Texture2D" uid="uid://bidjoeimmcqvp" path="res://sprites/characters/monsters/demon.png" id="8_4o3ef"]
+[ext_resource type="InkStoryCompiled" uid="uid://bidc83dmfl4xf" path="res://dialogue/dialogue_test_2.res" id="9_gxtfa"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_l6esi"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_gxtfa"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_bhq45")
+"texture": ExtResource("8_4o3ef")
 }],
 "loop": true,
 "name": &"down",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_qgr3a")
-}],
-"loop": true,
-"name": &"left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("9_3cos4")
-}],
-"loop": true,
-"name": &"right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("10_uk8j6")
-}],
-"loop": true,
-"name": &"up",
-"speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uk8j6"]
-size = Vector2(14, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4o3ef"]
+size = Vector2(16, 32)
 
 [node name="Scene" type="Node2D"]
 z_index = -20
@@ -76,20 +48,17 @@ metadata/_edit_lock_ = true
 [node name="PlayerStart" parent="." instance=ExtResource("5_1jbd1")]
 position = Vector2(96, 64)
 
-[node name="NPC" type="CharacterBody2D" parent="."]
+[node name="NPC" parent="." instance=ExtResource("7_6x1fm")]
 position = Vector2(144, 32)
-script = ExtResource("7_uk8j6")
-metadata/_edit_group_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC"]
-sprite_frames = SubResource("SpriteFrames_l6esi")
+[node name="Sprite" parent="NPC" index="0"]
+sprite_frames = SubResource("SpriteFrames_gxtfa")
 animation = &"down"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
-shape = SubResource("RectangleShape2D_uk8j6")
-metadata/_edit_group_ = true
+[node name="CollisionShape2D" parent="NPC" index="1"]
+shape = SubResource("RectangleShape2D_4o3ef")
 
-[node name="InteractionComponent" type="Node" parent="NPC"]
-script = ExtResource("11_qgr3a")
-interaction_event = ExtResource("12_3cos4")
-text_box_position = Rect2i(16, 48, 96, 48)
+[node name="InteractionComponent" parent="NPC" index="2"]
+interaction_event = ExtResource("9_gxtfa")
+
+[editable path="NPC"]

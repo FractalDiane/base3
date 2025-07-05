@@ -2,13 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://bwfvwsddw5mpq" path="res://sprites/ui/textbox.png" id="1_npdsx"]
 [ext_resource type="Script" uid="uid://dc7a6ax0cjsp3" path="res://scripts/ui/dialogue_box.gd" id="2_taf07"]
-[ext_resource type="FontFile" uid="uid://c5b7ngg5cmsth" path="res://fonts/QuinqueFive.ttf" id="3_xlpos"]
+[ext_resource type="FontFile" uid="uid://blbxayvxa6x6e" path="res://fonts/QuinqueFive5.ttf" id="3_4f7c4"]
 [ext_resource type="AudioStream" uid="uid://5lutsp6nvcaq" path="res://audio/sfx/ui/textbox1.wav" id="4_evirh"]
 [ext_resource type="AudioStream" uid="uid://4rmixj0eu42" path="res://audio/sfx/ui/textbox2.wav" id="5_4von1"]
 [ext_resource type="AudioStream" uid="uid://5am6ny8cdai6" path="res://audio/sfx/ui/text.wav" id="6_4von1"]
 [ext_resource type="AudioStream" uid="uid://bbejqk6bktt66" path="res://audio/sfx/ui/text_done.wav" id="7_4f7c4"]
 
 [node name="DialogueBox" type="NinePatchRect"]
+z_index = 400
 offset_right = 6.0
 offset_bottom = 6.0
 texture = ExtResource("1_npdsx")
@@ -25,7 +26,7 @@ offset_left = 7.0
 offset_top = 7.0
 offset_right = 47.0
 offset_bottom = 47.0
-theme_override_fonts/normal_font = ExtResource("3_xlpos")
+theme_override_fonts/normal_font = ExtResource("3_4f7c4")
 theme_override_font_sizes/normal_font_size = 5
 bbcode_enabled = true
 text = "test"

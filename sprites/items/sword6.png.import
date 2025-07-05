@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgyqfu1spnepq"
-path="res://.godot/imported/sigil.png-3ac21a84255eed1aa49af5714a23d604.ctex"
+uid="uid://lprxrwggir7y"
+path="res://.godot/imported/sword6.png-1c1ba9f4e7de10a3c8eb4d95c49d7956.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/sigil.png"
-dest_files=["res://.godot/imported/sigil.png-3ac21a84255eed1aa49af5714a23d604.ctex"]
+source_file="res://sprites/items/sword6.png"
+dest_files=["res://.godot/imported/sword6.png-1c1ba9f4e7de10a3c8eb4d95c49d7956.ctex"]
 
 [params]
 

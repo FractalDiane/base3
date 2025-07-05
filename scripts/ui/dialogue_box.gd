@@ -35,8 +35,8 @@ func start(text: String, rect_size := Rect2i()) -> void:
 	
 	if not open_anim_finished:
 		position = rect_size.position
-		label.size.x = rect_size.size.x - 4
-		label.size.y = rect_size.size.y - 4
+		label.size.x = rect_size.size.x - 12
+		label.size.y = rect_size.size.y - 12
 		
 		var tween := create_tween()
 		tween.tween_property(self, ^"size:x", rect_size.size.x, 0.3)
