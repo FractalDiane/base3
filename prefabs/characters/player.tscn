@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bnycdpejs82ko"]
+[gd_scene load_steps=42 format=3 uid="uid://bnycdpejs82ko"]
 
 [ext_resource type="Texture2D" uid="uid://ricb2b8143vu" path="res://sprites/characters/hero/hero_down.png" id="1_p1jl7"]
 [ext_resource type="Script" uid="uid://dn0iewgldbipo" path="res://scripts/characters/player.gd" id="1_q3iwp"]
@@ -18,14 +18,22 @@
 [ext_resource type="Texture2D" uid="uid://dyy0wtatmcafg" path="res://sprites/characters/hero/hero_up_walk2.png" id="9_c7vd0"]
 [ext_resource type="Texture2D" uid="uid://b2mccj13o8cxn" path="res://sprites/characters/hero/hero_right_walk1.png" id="9_pea7h"]
 [ext_resource type="Texture2D" uid="uid://djnmpm4j465ll" path="res://sprites/characters/hero/hero_right_walk2.png" id="10_raouy"]
+[ext_resource type="Texture2D" uid="uid://waimem1yvj0s" path="res://sprites/characters/hero/hero_left_sword1.png" id="11_y3lp4"]
+[ext_resource type="Texture2D" uid="uid://cjv1wysyielmb" path="res://sprites/characters/hero/hero_left_sword2.png" id="12_qjwt4"]
+[ext_resource type="Texture2D" uid="uid://ct51267uibvqu" path="res://sprites/characters/hero/hero_left_sword3.png" id="13_5dj2e"]
+[ext_resource type="Texture2D" uid="uid://i13fmc0wmesl" path="res://sprites/characters/hero/hero_left_sword4.png" id="14_2o3pg"]
 [ext_resource type="AudioStream" uid="uid://bp5t7co447nnf" path="res://audio/sfx/events/got_item.wav" id="15_scg0k"]
 [ext_resource type="AudioStream" uid="uid://bgog67mmoujy0" path="res://audio/sfx/events/got_item_short.wav" id="16_ldbrr"]
 [ext_resource type="Texture2D" uid="uid://c0udpri15nbe2" path="res://sprites/characters/hero/hero_up_sword1.png" id="17_aca0o"]
 [ext_resource type="AudioStream" uid="uid://bk6pci6yc1cjf" path="res://audio/sfx/events/got_item_shorter.wav" id="17_y6xia"]
 [ext_resource type="Texture2D" uid="uid://dj6e0x0xrev43" path="res://sprites/characters/hero/hero_up_sword2.png" id="18_46t34"]
+[ext_resource type="Texture2D" uid="uid://bvwmm2k88f8w3" path="res://sprites/characters/hero/hero_right_sword1.png" id="18_l70q0"]
 [ext_resource type="AudioStream" uid="uid://d3g5v4onfyywi" path="res://audio/sfx/combat/sword2.wav" id="19_qd4qe"]
+[ext_resource type="Texture2D" uid="uid://pjkcsj0qf2r5" path="res://sprites/characters/hero/hero_right_sword2.png" id="19_vtgjl"]
 [ext_resource type="Texture2D" uid="uid://d3t00edgt86bu" path="res://sprites/characters/hero/hero_up_sword3.png" id="19_ynbog"]
 [ext_resource type="Texture2D" uid="uid://b1t4e3gq1dyhe" path="res://sprites/characters/hero/hero_up_sword4.png" id="20_e2s36"]
+[ext_resource type="Texture2D" uid="uid://b01yl5imhs06n" path="res://sprites/characters/hero/hero_right_sword3.png" id="20_rsuex"]
+[ext_resource type="Texture2D" uid="uid://cr6g2vpaqvque" path="res://sprites/characters/hero/hero_right_sword4.png" id="21_peoih"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ij1v8"]
 animations = [{
@@ -89,6 +97,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("11_y3lp4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_qjwt4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_5dj2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_2o3pg")
+}],
+"loop": false,
+"name": &"left_sword",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("6_oea1d")
 }, {
 "duration": 1.0,
@@ -111,6 +136,23 @@ animations = [{
 "loop": true,
 "name": &"right",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_l70q0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_vtgjl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_rsuex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_peoih")
+}],
+"loop": false,
+"name": &"right_sword",
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -181,6 +223,45 @@ size = Vector2(14, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqqtv"]
 size = Vector2(4, 9)
 
+[sub_resource type="Animation" id="Animation_qd4qe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordHitbox/CollisionShape2D:shape:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordHitbox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 12.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_gqqtv"]
 resource_name = "sword_down"
 step = 0.1667
@@ -219,45 +300,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
-}
-
-[sub_resource type="Animation" id="Animation_qd4qe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SwordHitbox/CollisionShape2D:shape:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(4, 9)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SwordHitbox/CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2, 12.5)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qd4qe"]

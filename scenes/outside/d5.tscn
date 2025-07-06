@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=4 uid="uid://d3atr42u6dcvu"]
+[gd_scene load_steps=11 format=4 uid="uid://d3atr42u6dcvu"]
 
 [ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_apug5"]
 [ext_resource type="PackedScene" uid="uid://cuqv0dpu1ibc8" path="res://prefabs/objects/loading_zone_manager.tscn" id="2_8d8so"]
 [ext_resource type="TileSet" uid="uid://b7aqm2ary1clb" path="res://resources/tiles/tileset.tres" id="3_42nno"]
 [ext_resource type="Texture2D" uid="uid://b0npg1055smae" path="res://sprites/ui/ui.png" id="4_64mk6"]
 [ext_resource type="Script" uid="uid://cw5pjvxl3m3ge" path="res://scripts/utils/editor_only.gd" id="5_82lkn"]
-[ext_resource type="PackedScene" uid="uid://ier2fmcfi2e" path="res://prefabs/objects/player_start.tscn" id="6_8d8so"]
 [ext_resource type="PackedScene" uid="uid://ct2s0jhmd0dp" path="res://prefabs/props/tombstone.tscn" id="7_42nno"]
 [ext_resource type="Texture2D" uid="uid://dvocv5js7i4qp" path="res://sprites/props/tombstone2.png" id="8_64mk6"]
 
@@ -54,9 +53,6 @@ lifetime = 5.0
 preprocess = 5.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_8d8so")
-
-[node name="PlayerStart" parent="." instance=ExtResource("6_8d8so")]
-position = Vector2(16, 32)
 
 [node name="Tombstones" type="Node2D" parent="."]
 position = Vector2(-8, 0)
