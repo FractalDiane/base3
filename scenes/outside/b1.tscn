@@ -7,30 +7,16 @@
 [ext_resource type="Script" uid="uid://cw5pjvxl3m3ge" path="res://scripts/utils/editor_only.gd" id="4_6x1fm"]
 [ext_resource type="AudioStream" uid="uid://8aa5fth17yw5" path="res://audio/music/dark_noise.ogg" id="4_e22kl"]
 [ext_resource type="PackedScene" uid="uid://ier2fmcfi2e" path="res://prefabs/objects/player_start.tscn" id="5_1jbd1"]
-[ext_resource type="PackedScene" uid="uid://crqij3yxq457a" path="res://prefabs/characters/npc.tscn" id="7_6x1fm"]
-[ext_resource type="Texture2D" uid="uid://bidjoeimmcqvp" path="res://sprites/characters/monsters/demon.png" id="8_4o3ef"]
-[ext_resource type="InkStoryCompiled" uid="uid://bidc83dmfl4xf" path="res://dialogue/dialogue_test_2.res" id="9_gxtfa"]
 [ext_resource type="PackedScene" uid="uid://dhho4sctl4yec" path="res://scripts/events/event_trigger_volume.tscn" id="10_bhq45"]
 [ext_resource type="Texture2D" uid="uid://bxgghyqibe8g3" path="res://sprites/items/sword3.png" id="10_qgr3a"]
 [ext_resource type="Script" uid="uid://cm4yiqpidvb5c" path="res://scripts/components/conditional_component.gd" id="11_l6esi"]
 [ext_resource type="Script" uid="uid://bq01wsjt8vge1" path="res://scripts/resources/flag_requirement.gd" id="12_2erp4"]
 [ext_resource type="Resource" uid="uid://bon5r4esqa1yc" path="res://resources/flags/got_sword3.tres" id="13_4fw7t"]
 [ext_resource type="InkStoryCompiled" uid="uid://c8rxlbseygwvb" path="res://dialogue/selectors/selector_sword3.res" id="15_2erp4"]
+[ext_resource type="PackedScene" uid="uid://crqij3yxq457a" path="res://prefabs/characters/npc.tscn" id="15_4fw7t"]
 [ext_resource type="Script" uid="uid://hggim5m2iuai" path="res://scripts/objects/music_manager.gd" id="16_4fw7t"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_gxtfa"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_4o3ef")
-}],
-"loop": true,
-"name": &"down",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4o3ef"]
-size = Vector2(14, 9)
+[ext_resource type="Texture2D" uid="uid://bidjoeimmcqvp" path="res://sprites/characters/monsters/demon.png" id="16_e22kl"]
+[ext_resource type="InkStoryCompiled" uid="uid://bidc83dmfl4xf" path="res://dialogue/dialogue_test_2.res" id="17_e22kl"]
 
 [sub_resource type="Resource" id="Resource_e22kl"]
 script = ExtResource("12_2erp4")
@@ -41,6 +27,20 @@ metadata/_custom_type_script = "uid://bq01wsjt8vge1"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhq45"]
 size = Vector2(8, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e22kl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_e22kl")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fw7t"]
+size = Vector2(14, 10)
 
 [node name="Scene" type="Node2D"]
 z_index = -20
@@ -71,20 +71,6 @@ metadata/_edit_lock_ = true
 [node name="PlayerStart" parent="." instance=ExtResource("5_1jbd1")]
 position = Vector2(96, 64)
 
-[node name="NPC" parent="." instance=ExtResource("7_6x1fm")]
-position = Vector2(144, 32)
-
-[node name="Sprite" parent="NPC" index="0"]
-sprite_frames = SubResource("SpriteFrames_gxtfa")
-animation = &"down"
-
-[node name="CollisionShape2D" parent="NPC" index="1"]
-position = Vector2(0, 11.5)
-shape = SubResource("RectangleShape2D_4o3ef")
-
-[node name="InteractionComponent" parent="NPC" index="2"]
-interaction_event = ExtResource("9_gxtfa")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(112, 37)
 texture = ExtResource("10_qgr3a")
@@ -105,5 +91,23 @@ shape = SubResource("RectangleShape2D_bhq45")
 interaction_selector = ExtResource("15_2erp4")
 text_box_position = Rect2i(32, 64, 80, 36)
 
-[editable path="NPC"]
+[node name="NPC" parent="." instance=ExtResource("15_4fw7t")]
+position = Vector2(157, 31)
+
+[node name="Sprite" parent="NPC" index="0"]
+sprite_frames = SubResource("SpriteFrames_e22kl")
+animation = &"down"
+
+[node name="InteractionIndicator" parent="NPC" index="1"]
+position = Vector2(-4, -21)
+
+[node name="CollisionShape2D" parent="NPC" index="2"]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_4fw7t")
+
+[node name="InteractionComponent" parent="NPC" index="4"]
+interaction_event = ExtResource("17_e22kl")
+text_box_position = Rect2i(24, 48, 80, 48)
+
 [editable path="EventTriggerVolume"]
+[editable path="NPC"]

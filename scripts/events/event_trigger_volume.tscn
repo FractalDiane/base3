@@ -12,8 +12,9 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 debug_color = Color(0.451172, 0, 0.902344, 0.42)
 
-[node name="InteractionComponent" type="Node" parent="."]
+[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("interaction_area")]
 script = ExtResource("2_nt2mt")
+interaction_area = NodePath("..")
 metadata/_custom_type_script = "uid://ct5i3iw5prl82"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

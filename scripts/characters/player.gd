@@ -126,12 +126,28 @@ func _on_disable_collision_changed(disable: bool) -> void:
 	collision.disabled = disable
 
 
-func _on_sight_body_entered(body: Node2D) -> void:
+#func _on_sight_body_entered(body: Node2D) -> void:
+	#interactibles_in_sight.push_back(InteractibleInSight.new(body, position.distance_squared_to(body.position)))
+	#interactibles_in_sight.sort_custom(sort_interactibles)
+#
+#
+#func _on_sight_body_exited(body: Node2D) -> void:
+	#for i in range(len(interactibles_in_sight)):
+		#if interactibles_in_sight[i].interactible == body:
+			#interactibles_in_sight.remove_at(i)
+			#break
+			#
+	#interactibles_in_sight.sort_custom(sort_interactibles)
+	
+	
+func _on_sight_area_entered(area: Area2D) -> void:
+	var body := area.get_parent() as Node2D
 	interactibles_in_sight.push_back(InteractibleInSight.new(body, position.distance_squared_to(body.position)))
 	interactibles_in_sight.sort_custom(sort_interactibles)
 
 
-func _on_sight_body_exited(body: Node2D) -> void:
+func _on_sight_area_exited(area: Area2D) -> void:
+	var body := area.get_parent() as Node2D
 	for i in range(len(interactibles_in_sight)):
 		if interactibles_in_sight[i].interactible == body:
 			interactibles_in_sight.remove_at(i)

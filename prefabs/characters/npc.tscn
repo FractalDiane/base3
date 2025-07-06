@@ -1,22 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://crqij3yxq457a"]
+[gd_scene load_steps=8 format=3 uid="uid://crqij3yxq457a"]
 
 [ext_resource type="Script" uid="uid://bnjfc7yvufd8t" path="res://scripts/characters/npc.gd" id="1_yjvcv"]
+[ext_resource type="Texture2D" uid="uid://bvrsqlw7rtoi6" path="res://sprites/ui/interact1.png" id="2_kglqq"]
+[ext_resource type="Texture2D" uid="uid://c70ydg7qwnrol" path="res://sprites/ui/interact2.png" id="3_vh5ae"]
+[ext_resource type="Texture2D" uid="uid://cxrrv3wm7rmw3" path="res://sprites/ui/interact3.png" id="3_yjvcv"]
+[ext_resource type="Texture2D" uid="uid://bnw8fo2pmltj4" path="res://sprites/ui/interact4.png" id="4_jskmf"]
 [ext_resource type="Script" uid="uid://ct5i3iw5prl82" path="res://scripts/components/interaction_component.gd" id="6_ghiw8"]
-[ext_resource type="InkStoryCompiled" uid="uid://mbutp1f0i4in" path="res://dialogue/dialogue_test.res" id="7_6sgs7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yjvcv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_vh5ae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yjvcv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jskmf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_kglqq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
 
 [node name="NPC" type="CharacterBody2D"]
-collision_layer = 17
 script = ExtResource("1_yjvcv")
 metadata/_edit_group_ = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 
+[node name="InteractionIndicator" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yjvcv")
+frame = 2
+frame_progress = 0.17948
+centered = false
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 metadata/_edit_group_ = true
 
-[node name="InteractionComponent" type="Node" parent="."]
-script = ExtResource("6_ghiw8")
-interaction_event = ExtResource("7_6sgs7")
-text_box_position = Rect2i(16, 48, 96, 48)
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+debug_color = Color(0.0431519, 0.789063, 0, 0.42)
+
+[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("interaction_area")]
+script = ExtResource("6_ghiw8")
+interaction_area = NodePath("../InteractionArea")
+metadata/_custom_type_script = "uid://ct5i3iw5prl82"
+
+[connection signal="focused" from="InteractionComponent" to="." method="_on_interaction_component_focused"]
+[connection signal="interaction_finished" from="InteractionComponent" to="." method="_on_interaction_component_interaction_finished"]
 [connection signal="interaction_started" from="InteractionComponent" to="." method="_on_interaction_component_interaction_started"]
+[connection signal="unfocused" from="InteractionComponent" to="." method="_on_interaction_component_unfocused"]

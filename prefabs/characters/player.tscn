@@ -323,7 +323,7 @@ position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_74lek")
 
 [node name="Sight" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sight"]
@@ -367,5 +367,5 @@ stream = ExtResource("16_ldbrr")
 stream = ExtResource("17_y6xia")
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
-[connection signal="body_entered" from="Sight" to="." method="_on_sight_body_entered"]
-[connection signal="body_exited" from="Sight" to="." method="_on_sight_body_exited"]
+[connection signal="area_entered" from="Sight" to="." method="_on_sight_area_entered"]
+[connection signal="area_exited" from="Sight" to="." method="_on_sight_area_exited"]
