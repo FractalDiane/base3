@@ -35,6 +35,9 @@ func _init(event: InkStoryCompiled, caller_: Node, text_box_size: Rect2i) -> voi
 	
 	ink_story = InkStory.new()
 	ink_story.load_compiled_file(event)
+	Utils.bind_ink_externals(ink_story, true)
+	
+	ink_story.bind_external_function(&"get_item_animation", got_item_animation)
 	
 
 func _ready() -> void:
@@ -114,3 +117,8 @@ func end_story_post_dialogue() -> void:
 func _on_dialogue_finished() -> void:
 	fetch_next_story_content()
 	continue_story()
+	
+###############################################################################
+
+func got_item_animation(item_path: String) -> void:
+	(get_tree().current_scene.get_node(^"Player") as Player).play_got_item_animation(get_tree().current_scene.get_node(item_path))

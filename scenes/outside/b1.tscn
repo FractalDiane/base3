@@ -1,14 +1,22 @@
-[gd_scene load_steps=12 format=4 uid="uid://e1g0dpmum8d5"]
+[gd_scene load_steps=22 format=4 uid="uid://e1g0dpmum8d5"]
 
 [ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_0nwv4"]
 [ext_resource type="PackedScene" uid="uid://cuqv0dpu1ibc8" path="res://prefabs/objects/loading_zone_manager.tscn" id="1_1jbd1"]
 [ext_resource type="TileSet" uid="uid://b7aqm2ary1clb" path="res://resources/tiles/tileset.tres" id="1_le3q7"]
 [ext_resource type="Texture2D" uid="uid://b0npg1055smae" path="res://sprites/ui/ui.png" id="3_0nwv4"]
 [ext_resource type="Script" uid="uid://cw5pjvxl3m3ge" path="res://scripts/utils/editor_only.gd" id="4_6x1fm"]
+[ext_resource type="AudioStream" uid="uid://8aa5fth17yw5" path="res://audio/music/dark_noise.ogg" id="4_e22kl"]
 [ext_resource type="PackedScene" uid="uid://ier2fmcfi2e" path="res://prefabs/objects/player_start.tscn" id="5_1jbd1"]
 [ext_resource type="PackedScene" uid="uid://crqij3yxq457a" path="res://prefabs/characters/npc.tscn" id="7_6x1fm"]
 [ext_resource type="Texture2D" uid="uid://bidjoeimmcqvp" path="res://sprites/characters/monsters/demon.png" id="8_4o3ef"]
 [ext_resource type="InkStoryCompiled" uid="uid://bidc83dmfl4xf" path="res://dialogue/dialogue_test_2.res" id="9_gxtfa"]
+[ext_resource type="PackedScene" uid="uid://dhho4sctl4yec" path="res://scripts/events/event_trigger_volume.tscn" id="10_bhq45"]
+[ext_resource type="Texture2D" uid="uid://bxgghyqibe8g3" path="res://sprites/items/sword3.png" id="10_qgr3a"]
+[ext_resource type="Script" uid="uid://cm4yiqpidvb5c" path="res://scripts/components/conditional_component.gd" id="11_l6esi"]
+[ext_resource type="Script" uid="uid://bq01wsjt8vge1" path="res://scripts/resources/flag_requirement.gd" id="12_2erp4"]
+[ext_resource type="Resource" uid="uid://bon5r4esqa1yc" path="res://resources/flags/got_sword3.tres" id="13_4fw7t"]
+[ext_resource type="InkStoryCompiled" uid="uid://c8rxlbseygwvb" path="res://dialogue/selectors/selector_sword3.res" id="15_2erp4"]
+[ext_resource type="Script" uid="uid://hggim5m2iuai" path="res://scripts/objects/music_manager.gd" id="16_4fw7t"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gxtfa"]
 animations = [{
@@ -22,7 +30,17 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4o3ef"]
-size = Vector2(16, 32)
+size = Vector2(14, 9)
+
+[sub_resource type="Resource" id="Resource_e22kl"]
+script = ExtResource("12_2erp4")
+flag = ExtResource("13_4fw7t")
+copies_required = 1
+invert_requirement = true
+metadata/_custom_type_script = "uid://bq01wsjt8vge1"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhq45"]
+size = Vector2(8, 18)
 
 [node name="Scene" type="Node2D"]
 z_index = -20
@@ -32,6 +50,11 @@ script = ExtResource("1_0nwv4")
 scene_up = "uid://7wf1hnfm16mo"
 scene_down = "uid://dn32wuuryqa8o"
 scene_right = "uid://cokaprcsmv8be"
+
+[node name="MusicManager" type="Node" parent="."]
+script = ExtResource("16_4fw7t")
+new_music = ExtResource("4_e22kl")
+metadata/_custom_type_script = "uid://hggim5m2iuai"
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAALAAEAAAAAAAAAAAALAAIAAAAAAAAAAAALAAMAAAAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAAAAAALAAYAAAAAAAAAAAAKAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAHAAYAAAAAAAEAAAAGAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAEAAYAAAAAAAEAAAADAAYAAAAAAAEAAAACAAYAAAAAAAEAAAABAAYAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAADAAQAAAAAAAEAAAADAAMAAAAAAAAAAAADAAIAAAAAAAAAAAADAAEAAAAAAAEAAAACAAEAAAAAAAEAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAEAAAACAAQAAAAAAAEAAAACAAMAAAAAAAEAAAACAAIAAAAAAAEAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAQAAAAAAAEAAAAEAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAEAAAAAAAEAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAUAAAAAAAEAAAAGAAUAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAEAAAAHAAIAAAAAAAEAAAAHAAMAAAAAAAEAAAAHAAQAAAAAAAEAAAAHAAUAAAAAAAEAAAAIAAUAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAMAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAEAAAAAAAAAAAD/////AAABAAAAAAD//wAAAAABAAAAAAD//wEAAAABAAAAAAD//wIAAAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAAKAAAAAAAAAAAAAAALAAAAAAAAAAAAAAA=")
@@ -56,9 +79,31 @@ sprite_frames = SubResource("SpriteFrames_gxtfa")
 animation = &"down"
 
 [node name="CollisionShape2D" parent="NPC" index="1"]
+position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_4o3ef")
 
 [node name="InteractionComponent" parent="NPC" index="2"]
 interaction_event = ExtResource("9_gxtfa")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(112, 37)
+texture = ExtResource("10_qgr3a")
+centered = false
+
+[node name="ConditionalComponent" type="Node" parent="Sprite2D"]
+script = ExtResource("11_l6esi")
+flags_required = Array[ExtResource("12_2erp4")]([SubResource("Resource_e22kl")])
+metadata/_custom_type_script = "uid://cm4yiqpidvb5c"
+
+[node name="EventTriggerVolume" parent="." instance=ExtResource("10_bhq45")]
+position = Vector2(115, 44)
+
+[node name="CollisionShape2D" parent="EventTriggerVolume" index="0"]
+shape = SubResource("RectangleShape2D_bhq45")
+
+[node name="InteractionComponent" parent="EventTriggerVolume" index="1"]
+interaction_selector = ExtResource("15_2erp4")
+text_box_position = Rect2i(32, 64, 80, 36)
+
 [editable path="NPC"]
+[editable path="EventTriggerVolume"]

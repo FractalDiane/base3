@@ -1,18 +1,31 @@
-[gd_scene load_steps=16 format=3 uid="uid://bnycdpejs82ko"]
+[gd_scene load_steps=34 format=3 uid="uid://bnycdpejs82ko"]
 
 [ext_resource type="Texture2D" uid="uid://ricb2b8143vu" path="res://sprites/characters/hero/hero_down.png" id="1_p1jl7"]
 [ext_resource type="Script" uid="uid://dn0iewgldbipo" path="res://scripts/characters/player.gd" id="1_q3iwp"]
 [ext_resource type="Texture2D" uid="uid://22k4k5wvopat" path="res://sprites/characters/hero/hero_left.png" id="2_q3iwp"]
+[ext_resource type="Texture2D" uid="uid://dsinoul2k1oxr" path="res://sprites/characters/hero/hero_down_sword1.png" id="3_gqqtv"]
 [ext_resource type="Texture2D" uid="uid://cf1fe0nrqqt6e" path="res://sprites/characters/hero/hero_down_walk1.png" id="3_hc1fl"]
 [ext_resource type="Texture2D" uid="uid://bd7t568n6w5o4" path="res://sprites/characters/hero/hero_right.png" id="3_ohyvs"]
 [ext_resource type="Texture2D" uid="uid://7wuo0b6w4yqg" path="res://sprites/characters/hero/hero_up.png" id="4_hc1fl"]
 [ext_resource type="Texture2D" uid="uid://bn65j3j70mmo5" path="res://sprites/characters/hero/hero_down_walk2.png" id="4_kylil"]
+[ext_resource type="Texture2D" uid="uid://bfflbndrk13u4" path="res://sprites/characters/hero/hero_down_sword2.png" id="4_qd4qe"]
+[ext_resource type="Texture2D" uid="uid://bhl15x2o23f" path="res://sprites/characters/hero/hero_getitem.png" id="5_n7no3"]
+[ext_resource type="Texture2D" uid="uid://cllmmi02vtmpp" path="res://sprites/characters/hero/hero_down_sword3.png" id="5_sho32"]
 [ext_resource type="Texture2D" uid="uid://c01u2jlol4u1q" path="res://sprites/characters/hero/hero_left_walk1.png" id="6_oea1d"]
+[ext_resource type="Texture2D" uid="uid://dkwov6vbbbc5p" path="res://sprites/characters/hero/hero_down_sword4.png" id="6_ta7x3"]
 [ext_resource type="Texture2D" uid="uid://cml3pn3wgwi60" path="res://sprites/characters/hero/hero_left_walk2.png" id="7_n7no3"]
 [ext_resource type="Texture2D" uid="uid://m7p8hf54xxpw" path="res://sprites/characters/hero/hero_up_walk1.png" id="8_jd78j"]
 [ext_resource type="Texture2D" uid="uid://dyy0wtatmcafg" path="res://sprites/characters/hero/hero_up_walk2.png" id="9_c7vd0"]
 [ext_resource type="Texture2D" uid="uid://b2mccj13o8cxn" path="res://sprites/characters/hero/hero_right_walk1.png" id="9_pea7h"]
 [ext_resource type="Texture2D" uid="uid://djnmpm4j465ll" path="res://sprites/characters/hero/hero_right_walk2.png" id="10_raouy"]
+[ext_resource type="AudioStream" uid="uid://bp5t7co447nnf" path="res://audio/sfx/events/got_item.wav" id="15_scg0k"]
+[ext_resource type="AudioStream" uid="uid://bgog67mmoujy0" path="res://audio/sfx/events/got_item_short.wav" id="16_ldbrr"]
+[ext_resource type="Texture2D" uid="uid://c0udpri15nbe2" path="res://sprites/characters/hero/hero_up_sword1.png" id="17_aca0o"]
+[ext_resource type="AudioStream" uid="uid://bk6pci6yc1cjf" path="res://audio/sfx/events/got_item_shorter.wav" id="17_y6xia"]
+[ext_resource type="Texture2D" uid="uid://dj6e0x0xrev43" path="res://sprites/characters/hero/hero_up_sword2.png" id="18_46t34"]
+[ext_resource type="AudioStream" uid="uid://d3g5v4onfyywi" path="res://audio/sfx/combat/sword2.wav" id="19_qd4qe"]
+[ext_resource type="Texture2D" uid="uid://d3t00edgt86bu" path="res://sprites/characters/hero/hero_up_sword3.png" id="19_ynbog"]
+[ext_resource type="Texture2D" uid="uid://b1t4e3gq1dyhe" path="res://sprites/characters/hero/hero_up_sword4.png" id="20_e2s36"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ij1v8"]
 animations = [{
@@ -23,6 +36,23 @@ animations = [{
 "loop": true,
 "name": &"down",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_gqqtv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qd4qe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sho32")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ta7x3")
+}],
+"loop": false,
+"name": &"down_sword",
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -40,6 +70,14 @@ animations = [{
 "loop": true,
 "name": &"down_walk",
 "speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_n7no3")
+}],
+"loop": true,
+"name": &"got_item",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -101,6 +139,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("17_aca0o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_46t34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_ynbog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_e2s36")
+}],
+"loop": false,
+"name": &"up_sword",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("8_jd78j")
 }, {
 "duration": 1.0,
@@ -118,7 +173,98 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_74lek"]
-size = Vector2(12, 16)
+size = Vector2(8, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aca0o"]
+size = Vector2(14, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqqtv"]
+size = Vector2(4, 9)
+
+[sub_resource type="Animation" id="Animation_gqqtv"]
+resource_name = "sword_down"
+step = 0.1667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordHitbox/CollisionShape2D:shape:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordHitbox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(2, 12.5), Vector2(2, 10.5), Vector2(2, 6.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_qd4qe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordHitbox/CollisionShape2D:shape:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordHitbox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 12.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qd4qe"]
+_data = {
+&"RESET": SubResource("Animation_qd4qe"),
+&"sword_down": SubResource("Animation_gqqtv")
+}
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
@@ -128,9 +274,10 @@ metadata/_edit_group_ = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ij1v8")
-animation = &"left_walk"
+animation = &"down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_74lek")
 
 [node name="Sight" type="Area2D" parent="."]
@@ -140,5 +287,43 @@ collision_mask = 16
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sight"]
 polygon = PackedVector2Array(0, 0, -7, 18, 7, 18)
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_aca0o")
+debug_color = Color(0.136719, 0.7, 0, 0.42)
+
+[node name="SwordHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
+position = Vector2(2, 12.5)
+shape = SubResource("RectangleShape2D_gqqtv")
+disabled = true
+debug_color = Color(0, 0.109375, 1, 0.42)
+
+[node name="GotItem" type="Marker2D" parent="."]
+position = Vector2(0, -18)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qd4qe")
+}
+
+[node name="SoundSword" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_qd4qe")
+max_polyphony = 4
+
+[node name="SoundGotItem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_scg0k")
+
+[node name="SoundGotItemShort" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_ldbrr")
+
+[node name="SoundGotItemShorter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_y6xia")
+
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="body_entered" from="Sight" to="." method="_on_sight_body_entered"]
 [connection signal="body_exited" from="Sight" to="." method="_on_sight_body_exited"]

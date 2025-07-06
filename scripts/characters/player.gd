@@ -20,6 +20,8 @@ const DIR_ROTATIONS: Array[float] = [
 var motion := Vector2()
 var face := Enums.Direction.Down
 
+var swinging_sword := false
+
 class InteractibleInSight:
 	var interactible: Node2D
 	var distance: float
@@ -30,25 +32,35 @@ class InteractibleInSight:
 
 var interactibles_in_sight: Array[InteractibleInSight] = []
 
+var gotten_item: Sprite2D = null
+
 @onready var sprite := $Sprite as AnimatedSprite2D
 @onready var sight := $Sight as Area2D
+@onready var got_item_marker := $GotItem as Marker2D
 @onready var collision := $CollisionShape2D as CollisionShape2D
+
+@onready var sound_sword := $SoundSword as AudioStreamPlayer
+@onready var sound_item := $SoundGotItem as AudioStreamPlayer
+@onready var sound_item_short := $SoundGotItemShort as AudioStreamPlayer
+@onready var sound_item_shorter := $SoundGotItemShorter as AudioStreamPlayer
 
 ###############################################################################
 
 func _ready() -> void:
 	PlayerStateSubsystem.disable_collision_changed.connect(_on_disable_collision_changed)
+	EventPlaybackSubsystem.event_finished.connect(_on_event_finished)
 	
 	
 func _process(_delta: float) -> void:
-	direction_management()
-	_animate_sprite()
+	if not PlayerStateSubsystem.is_movement_blocked() and not swinging_sword:
+		direction_management()
+		_animate_sprite()
 	
 	z_index = int(global_position.y)
 	
 	
 func _physics_process(_delta: float) -> void:
-	if not PlayerStateSubsystem.is_movement_blocked():
+	if not PlayerStateSubsystem.is_movement_blocked() and not swinging_sword:
 		motion.x = Input.get_axis(&"move_left", &"move_right")
 		motion.y = Input.get_axis(&"move_up", &"move_down")
 		
@@ -56,15 +68,34 @@ func _physics_process(_delta: float) -> void:
 		
 		if Input.is_action_just_pressed(&"interact") and not interactibles_in_sight.is_empty():
 			(interactibles_in_sight[0].interactible.get_node(^"InteractionComponent") as InteractionComponent).interact(face)
+			
+		if not swinging_sword and Input.is_action_just_pressed(&"sword"):
+			sprite.play(DIR_ANIMATIONS[int(face)] + "_sword")
+			sound_sword.play()
+			swinging_sword = true
 	else:
 		velocity = Vector2.ZERO
 		
 	move_and_slide()
 	
+
+func play_got_item_animation(item: Sprite2D) -> void:
+	gotten_item = item
+	var tween := create_tween()
+	tween.tween_property(item, ^"global_position", round(got_item_marker.global_position - item.texture.get_size() * 0.5), 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	
-func set_collision_enabled(enabled: bool) -> void:
-	collision.disabled = not enabled
-	
+	PlayerStateSubsystem.push_block_movement_source()
+	sprite.play(&"got_item")
+	sound_item.play()
+
+
+func end_got_item_animation() -> void:
+	PlayerStateSubsystem.pop_block_movement_source()
+	sprite.play(&"down")
+	face = Enums.Direction.Down
+	gotten_item.queue_free()
+	gotten_item = null
+
 
 func direction_management() -> void:
 	if motion.x == 0:
@@ -111,3 +142,13 @@ func _on_sight_body_exited(body: Node2D) -> void:
 	
 func sort_interactibles(a: InteractibleInSight, b: InteractibleInSight):
 	return a.distance < b.distance
+	
+	
+func _on_event_finished(_event: InkStoryCompiled) -> void:
+	if gotten_item != null:
+		end_got_item_animation()
+
+
+func _on_sprite_animation_finished() -> void:
+	if sprite.animation.ends_with("sword"):
+		swinging_sword = false

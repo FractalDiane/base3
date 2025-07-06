@@ -28,7 +28,7 @@ func setup_from_manager(scene: String, normal: Vector2) -> void:
 	($CollisionShape2D as CollisionShape2D).shape = shape
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_area_entered(area: Area2D) -> void:
 	collision.set_deferred(&"disabled", true)
 	PlayerStateSubsystem.push_block_movement_source()
 	PlayerStateSubsystem.push_disable_collision_source.call_deferred()
@@ -47,7 +47,7 @@ func _on_body_entered(body: Node2D) -> void:
 		var tween := get_tree().create_tween()
 		tween.set_parallel()
 
-		var player := body as Player
+		var player := area.get_parent() as Player
 		var current_position_player := player.position
 		tween.tween_property(player, ^"position", current_position_player + -shape_normal * 16, 1.0)
 		

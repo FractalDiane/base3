@@ -1,10 +1,30 @@
-[gd_scene load_steps=6 format=4 uid="uid://d3atr42u6dcvu"]
+[gd_scene load_steps=12 format=4 uid="uid://d3atr42u6dcvu"]
 
 [ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_apug5"]
 [ext_resource type="PackedScene" uid="uid://cuqv0dpu1ibc8" path="res://prefabs/objects/loading_zone_manager.tscn" id="2_8d8so"]
 [ext_resource type="TileSet" uid="uid://b7aqm2ary1clb" path="res://resources/tiles/tileset.tres" id="3_42nno"]
 [ext_resource type="Texture2D" uid="uid://b0npg1055smae" path="res://sprites/ui/ui.png" id="4_64mk6"]
 [ext_resource type="Script" uid="uid://cw5pjvxl3m3ge" path="res://scripts/utils/editor_only.gd" id="5_82lkn"]
+[ext_resource type="PackedScene" uid="uid://ier2fmcfi2e" path="res://prefabs/objects/player_start.tscn" id="6_8d8so"]
+[ext_resource type="PackedScene" uid="uid://ct2s0jhmd0dp" path="res://prefabs/props/tombstone.tscn" id="7_42nno"]
+[ext_resource type="Texture2D" uid="uid://dvocv5js7i4qp" path="res://sprites/props/tombstone2.png" id="8_64mk6"]
+
+[sub_resource type="Curve" id="Curve_apug5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.498127, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wmaqw"]
+curve = SubResource("Curve_apug5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8d8so"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100, 72, 1)
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_wmaqw")
 
 [node name="Scene" type="Node2D"]
 z_index = -20
@@ -16,7 +36,7 @@ scene_down = "res://scenes/outside/e5.tscn"
 scene_left = "uid://cnyqsajwfxif3"
 
 [node name="Tiles" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAALAAEAAAAAAAAAAAALAAIAAAAAAAAAAAALAAMAAAAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAAAAAALAAYAAAAAAAAAAAAKAAYAAAAAAAEAAAAJAAYAAAAAAAEAAAAIAAYAAAAAAAEAAAAHAAYAAAAAAAEAAAAGAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAEAAYAAAAAAAEAAAADAAYAAAAAAAEAAAACAAYAAAAAAAEAAAABAAYAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAADAAQAAAAAAAAAAAADAAMAAAAAAAAAAAADAAIAAAAAAAAAAAADAAEAAAAAAAEAAAACAAEAAAAAAAEAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAEAAAACAAQAAAAAAAEAAAACAAMAAAAAAAEAAAACAAIAAAAAAAEAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAEAAAAAAAEAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAUAAAAAAAEAAAAGAAUAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAEAAAAHAAIAAAAAAAEAAAAHAAMAAAAAAAEAAAAHAAQAAAAAAAEAAAAHAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAQAAAAAAAEAAAAIAAMAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAEAAAAAAAEAAAAJAAEAAAAAAAEAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAEAAAAJAAUAAAAAAAAAAAAKAAUAAAAAAAEAAAAKAAQAAAAAAAEAAAAKAAMAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAEAAAAAAAEAAAAKAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAAAAAABAAAAAAAMAAEAAAABAAAAAAAMAAIAAAABAAAAAAAMAAMAAAABAAAAAAAMAAQAAAABAAAAAAAMAAUAAAABAAAAAAAMAAYAAAABAAAAAAAMAAcAAAABAAAAAAAMAP//AAABAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAMAAHADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAALAAEAAAAAAAAAAAALAAIAAAAAAAAAAAALAAMAAAAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAAAAAALAAYAAAAAAAIAADAKAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAEAAYAAAAAAAAAAAADAAYAAAAAAAAAAAACAAYAAAAAAAAAAAABAAYAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAADAAQAAAAAAAIAAAADAAMAAAAAAAAAAAADAAIAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAACAAQAAAAAAAAAAAACAAMAAAAAAAAAAAACAAIAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAAAAMAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAMAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAEAAAAAAAAAAAAKAAAAAAAAAAIAAFALAAAAAAAAAAAAAAAMAAAAAAABAAAAAAAMAAEAAAABAAAAAAAMAAIAAAABAAAAAAAMAAMAAAABAAAAAAAMAAQAAAABAAAAAAAMAAUAAAABAAAAAAAMAAYAAAABAAAAAAAMAAcAAAABAAAAAAAMAP//AAABAAAAAAA=")
 tile_set = ExtResource("3_42nno")
 metadata/_edit_lock_ = true
 
@@ -26,3 +46,135 @@ texture = ExtResource("4_64mk6")
 centered = false
 script = ExtResource("5_82lkn")
 metadata/_edit_lock_ = true
+
+[node name="Particles" type="GPUParticles2D" parent="."]
+position = Vector2(96, 64)
+amount = 12
+lifetime = 5.0
+preprocess = 5.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_8d8so")
+
+[node name="PlayerStart" parent="." instance=ExtResource("6_8d8so")]
+position = Vector2(16, 32)
+
+[node name="Tombstones" type="Node2D" parent="."]
+position = Vector2(-8, 0)
+
+[node name="Tombstone" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 20
+position = Vector2(32, 16)
+z_index_offset = 4
+
+[node name="Tombstone2" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 20
+position = Vector2(64, 16)
+z_index_offset = 4
+
+[node name="Sprite2D" parent="Tombstones/Tombstone2" index="0"]
+texture = ExtResource("8_64mk6")
+
+[node name="Tombstone3" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 20
+position = Vector2(96, 16)
+z_index_offset = 4
+
+[node name="Tombstone4" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 20
+position = Vector2(128, 16)
+z_index_offset = 4
+
+[node name="Sprite2D" parent="Tombstones/Tombstone4" index="0"]
+texture = ExtResource("8_64mk6")
+flip_h = true
+
+[node name="Tombstone5" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 20
+position = Vector2(160, 16)
+z_index_offset = 4
+
+[node name="Tombstone6" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 52
+position = Vector2(32, 48)
+z_index_offset = 4
+
+[node name="Sprite2D" parent="Tombstones/Tombstone6" index="0"]
+flip_h = true
+
+[node name="Tombstone7" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 52
+position = Vector2(64, 48)
+z_index_offset = 4
+
+[node name="Sprite2D" parent="Tombstones/Tombstone7" index="0"]
+texture = ExtResource("8_64mk6")
+flip_h = true
+
+[node name="Tombstone8" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 52
+position = Vector2(96, 48)
+z_index_offset = 4
+
+[node name="Tombstone9" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 52
+position = Vector2(128, 48)
+z_index_offset = 4
+
+[node name="Sprite2D" parent="Tombstones/Tombstone9" index="0"]
+flip_h = true
+
+[node name="Tombstone10" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 52
+position = Vector2(160, 48)
+z_index_offset = 4
+
+[node name="Tombstone11" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 84
+position = Vector2(32, 80)
+z_index_offset = 4
+
+[node name="Sprite2D" parent="Tombstones/Tombstone11" index="0"]
+texture = ExtResource("8_64mk6")
+
+[node name="Tombstone12" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 84
+position = Vector2(64, 80)
+z_index_offset = 4
+
+[node name="Sprite2D" parent="Tombstones/Tombstone12" index="0"]
+flip_h = true
+
+[node name="Tombstone13" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 84
+position = Vector2(96, 80)
+z_index_offset = 4
+
+[node name="Tombstone14" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 84
+position = Vector2(128, 80)
+z_index_offset = 4
+
+[node name="Sprite2D" parent="Tombstones/Tombstone14" index="0"]
+texture = ExtResource("8_64mk6")
+flip_h = true
+
+[node name="Tombstone15" parent="Tombstones" instance=ExtResource("7_42nno")]
+z_index = 84
+position = Vector2(160, 80)
+z_index_offset = 4
+
+[editable path="Tombstones/Tombstone"]
+[editable path="Tombstones/Tombstone2"]
+[editable path="Tombstones/Tombstone3"]
+[editable path="Tombstones/Tombstone4"]
+[editable path="Tombstones/Tombstone5"]
+[editable path="Tombstones/Tombstone6"]
+[editable path="Tombstones/Tombstone7"]
+[editable path="Tombstones/Tombstone8"]
+[editable path="Tombstones/Tombstone9"]
+[editable path="Tombstones/Tombstone10"]
+[editable path="Tombstones/Tombstone11"]
+[editable path="Tombstones/Tombstone12"]
+[editable path="Tombstones/Tombstone13"]
+[editable path="Tombstones/Tombstone14"]
+[editable path="Tombstones/Tombstone15"]

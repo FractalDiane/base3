@@ -4,9 +4,10 @@
 
 [node name="LoadingZone" type="Area2D"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 4
 script = ExtResource("1_e3ob2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

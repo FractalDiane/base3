@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://du2yv7ym00lhj"]
+
+[ext_resource type="Script" uid="uid://da6lgkmlxi64y" path="res://scripts/objects/prop.gd" id="1_agkjh"]
+
+[node name="Prop" type="StaticBody2D"]
+script = ExtResource("1_agkjh")
+z_index_offset = null
+
+[node name="Sprite" type="Sprite2D" parent="."]
+centered = false
