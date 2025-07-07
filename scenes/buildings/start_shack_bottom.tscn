@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=4 uid="uid://cfpkb1hkc248r"]
+
+[ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_pscy6"]
+[ext_resource type="Script" uid="uid://hggim5m2iuai" path="res://scripts/objects/music_manager.gd" id="2_se4fk"]
+[ext_resource type="TileSet" uid="uid://b7aqm2ary1clb" path="res://resources/tiles/tileset.tres" id="3_vijbj"]
+[ext_resource type="Texture2D" uid="uid://b0npg1055smae" path="res://sprites/ui/ui.png" id="4_mnffv"]
+[ext_resource type="Script" uid="uid://cw5pjvxl3m3ge" path="res://scripts/utils/editor_only.gd" id="5_whdto"]
+[ext_resource type="Script" uid="uid://bicrtabco5oqf" path="res://scripts/objects/loading_zone_manager.gd" id="6_se4fk"]
+[ext_resource type="PackedScene" uid="uid://c8ob2oath2y73" path="res://prefabs/objects/loading_zone.tscn" id="7_vijbj"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mnffv"]
+distance = -112.0
+
+[sub_resource type="Curve" id="Curve_vijbj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.498127, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wmaqw"]
+curve = SubResource("Curve_vijbj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mnffv"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100, 72, 1)
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_wmaqw")
+
+[node name="StartShack" type="Node2D"]
+script = ExtResource("1_pscy6")
+
+[node name="MusicManager" type="Node" parent="."]
+script = ExtResource("2_se4fk")
+metadata/_custom_type_script = "uid://hggim5m2iuai"
+
+[node name="TilesFloor" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAIAAAAAAABAAEAAAAIAAEAAAABAAEAAAAIAAIAAAABAAEAAAAJAAIAAAABAAEAAAAJAAEAAAABAAEAAAAJAAAAAAABAAEAAAAJAAMAAAABAAEAAAAIAAMAAAABAAEAAAAHAAMAAAABAAEAAAAGAAMAAAABAAEAAAAFAAMAAAABAAEAAAAEAAMAAAABAAEAAAADAAMAAAABAAEAAAACAAMAAAABAAEAAAABAAMAAAABAAEAAAABAAQAAAABAAEAAAABAAUAAAABAAEAAAACAAUAAAABAAEAAAADAAUAAAABAAEAAAAEAAUAAAABAAEAAAAFAAUAAAABAAEAAAAGAAUAAAABAAEAAAAHAAUAAAABAAEAAAAIAAUAAAABAAEAAAAJAAUAAAABAAEAAAAKAAUAAAABAAEAAAALAAUAAAABAAEAAAALAAQAAAABAAEAAAAKAAQAAAABAAEAAAAKAAMAAAABAAEAAAAIAAQAAAABAAEAAAAHAAQAAAABAAEAAAAGAAQAAAABAAEAAAAFAAQAAAABAAEAAAAEAAQAAAABAAEAAAADAAQAAAABAAEAAAACAAQAAAABAAEAAAAHAAIAAAABAAEAAAAKAAIAAAABAAEAAAAJAAQAAAABAAEAAAAGAAYAAAABAAEAAAAFAAYAAAABAAEAAAAEAAYAAAABAAEAAAADAAYAAAABAAEAAAA=")
+tile_set = ExtResource("3_vijbj")
+
+[node name="Tiles" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAABAAAAAAADAAMAAAACAAAAAAADAAMAAAADAAAAAAADAAMAAAAEAAAAAAADAAMAAAAFAAAAAAADAAMAAAAGAAAAAAADAAMAAAAHAAAAAAAEAAMAAAAKAAAAAAACAAMAAAAKAAEAAAACAAMAAAAKAAIAAAACAAQAAAAHAAIAAAAEAAQAAAAGAAIAAAADAAQAAAAFAAIAAAADAAQAAAAEAAIAAAADAAQAAAADAAIAAAADAAQAAAACAAIAAAADAAQAAAABAAIAAAADAAQAAAABAAEAAAADAAMAAAACAAEAAAADAAMAAAADAAEAAAADAAMAAAAEAAEAAAADAAMAAAAFAAEAAAADAAMAAAAGAAEAAAADAAMAAAAHAAEAAAAEAAMAAAAAAAAAAAACAAMAAAAAAAEAAAACAAMAAAALAAEAAAAEAAMAAAALAAAAAAAEAAMAAAAAAAIAAAACAAQAAAALAAIAAAAEAAQAAAA=")
+tile_set = ExtResource("3_vijbj")
+
+[node name="TilesUpper" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAALAAEAAAABAAQAAAALAAIAAAABAAQAAAALAAMAAAABAAQAAAALAAQAAAABAAQAAAALAAUAAAABAAQAAAAAAAEAAAABAAQAAAAAAAIAAAABAAQAAAAAAAMAAAABAAQAAAAAAAQAAAABAAQAAAAAAAUAAAABAAQAAAAAAAYAAAACAAMAAAAHAAYAAAADAAIAAAAIAAYAAAADAAIAAAAJAAYAAAADAAIAAAAKAAYAAAADAAIAAAALAAYAAAAEAAMAAAADAAcAAAADAAQAAAACAAcAAAADAAQAAAABAAcAAAADAAQAAAAAAAcAAAACAAQAAAAHAAcAAAADAAQAAAAIAAcAAAADAAQAAAAJAAcAAAADAAQAAAAKAAcAAAADAAQAAAALAAcAAAAEAAQAAAADAAYAAAAEAAIAAAACAAYAAAADAAIAAAABAAYAAAADAAIAAAAAAAAAAAACAAMAAAALAAAAAAAEAAMAAAAHAAAAAAAEAAQAAAAGAAAAAAADAAQAAAAFAAAAAAADAAQAAAAEAAAAAAADAAQAAAADAAAAAAADAAQAAAACAAAAAAADAAQAAAABAAAAAAADAAQAAAAKAAAAAAACAAQAAAAGAAYAAAACAAIAAAAGAAcAAAACAAQAAAA=")
+tile_set = ExtResource("3_vijbj")
+
+[node name="HUD?" type="Sprite2D" parent="."]
+position = Vector2(0, 112)
+texture = ExtResource("4_mnffv")
+centered = false
+script = ExtResource("5_whdto")
+metadata/_edit_lock_ = true
+
+[node name="LoadingZoneManager" type="Node" parent="."]
+script = ExtResource("6_se4fk")
+scene_up = "uid://b3iqqh7fjjbqj"
+metadata/_custom_type_script = "uid://bicrtabco5oqf"
+
+[node name="LoadingZone" parent="." instance=ExtResource("7_vijbj")]
+target_scene = "uid://cnyqsajwfxif3"
+target_position = Vector2(120, 84)
+
+[node name="CollisionShape2D" parent="LoadingZone" index="0"]
+shape = SubResource("WorldBoundaryShape2D_mnffv")
+
+[node name="Particles" type="GPUParticles2D" parent="."]
+z_index = 200
+position = Vector2(96, 64)
+amount = 12
+lifetime = 5.0
+preprocess = 5.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_mnffv")
+
+[editable path="LoadingZone"]

@@ -1,10 +1,15 @@
 class_name LoadingZone
 extends Area2D
 
+const TRANSITION_ANIMATION := preload("res://prefabs/ui/transition_animation_2.tscn")
+
 @export var scrolling := false
 @export_file("*.tscn") var target_scene := String()
+@export var target_position := Vector2()
+@export var target_direction := Enums.Direction.Down
 
 @onready var collision := $CollisionShape2D as CollisionShape2D
+@onready var sound_transition := $SoundTransition as AudioStreamPlayer
 
 ###############################################################################
 
@@ -32,6 +37,7 @@ func _on_area_entered(area: Area2D) -> void:
 	collision.set_deferred(&"disabled", true)
 	PlayerStateSubsystem.push_block_movement_source()
 	PlayerStateSubsystem.push_disable_collision_source.call_deferred()
+	var player := area.get_parent() as Player
 	if scrolling:
 		var new_scene_packed := ResourceLoader.load_threaded_get(target_scene)
 		var new_scene := (new_scene_packed as PackedScene).instantiate() as BaseScene
@@ -46,10 +52,10 @@ func _on_area_entered(area: Area2D) -> void:
 
 		var tween := get_tree().create_tween()
 		tween.set_parallel()
-
-		var player := area.get_parent() as Player
+		
 		var current_position_player := player.position
 		tween.tween_property(player, ^"position", current_position_player + -shape_normal * 16, 1.0)
+		player.start_scroll()
 		
 		var old_scene := get_tree().current_scene as BaseScene
 		var current_position_scene_from := old_scene.position
@@ -59,13 +65,19 @@ func _on_area_entered(area: Area2D) -> void:
 		
 		tween.finished.connect(_on_scroll_finished.bind(old_scene, new_scene, player))
 	else:
-		pass
+		player.end_scroll()
+		sound_transition.play()
+		var transition := TRANSITION_ANIMATION.instantiate() as TransitionAnimation
+		get_tree().root.add_child(transition)
+		transition.start(player, target_scene, target_position, target_direction)
+
 
 func _on_scroll_finished(old_scene: BaseScene, new_scene: BaseScene, player: Player) -> void:
 	var player_global_pos := player.global_position
 	old_scene.remove_child(player)
 	new_scene.add_child(player)
 	player.global_position = player_global_pos
+	player.end_scroll()
 	
 	old_scene.queue_free()
 	new_scene.finish_transition_to()

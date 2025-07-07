@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnjdqbfr6s0qv"]
+
+[ext_resource type="Texture2D" uid="uid://b86qiwj3xoeni" path="res://sprites/ui/transition.png" id="1_a1eie"]
+[ext_resource type="Script" uid="uid://bpb0j5baw86ht" path="res://scripts/ui/transition_animation.gd" id="1_cwc27"]
+
+[sub_resource type="Shader" id="Shader_4b6ki"]
+code = "shader_type canvas_item;
+
+uniform sampler2D transition_texture;
+uniform float threshold : hint_range(0.0, 1.0);
+
+void fragment() {
+	float input = texture(transition_texture, UV).r;
+	COLOR.a = float(threshold > input);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1eie"]
+shader = SubResource("Shader_4b6ki")
+shader_parameter/transition_texture = ExtResource("1_a1eie")
+shader_parameter/threshold = 0.0
+
+[sub_resource type="Animation" id="Animation_cwc27"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/threshold")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_a1eie"]
+resource_name = "transition"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/threshold")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.85]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b5x4q"]
+_data = {
+&"RESET": SubResource("Animation_cwc27"),
+&"transition": SubResource("Animation_a1eie")
+}
+
+[node name="TransitionAnimation2" type="CanvasLayer"]
+script = ExtResource("1_cwc27")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+material = SubResource("ShaderMaterial_a1eie")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_b5x4q")
+}
+speed_scale = 0.5
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

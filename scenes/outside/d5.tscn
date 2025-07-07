@@ -12,7 +12,7 @@
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.498127, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_wmaqw"]
+[sub_resource type="CurveTexture" id="CurveTexture_42nno"]
 curve = SubResource("Curve_apug5")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8d8so"]
@@ -23,7 +23,7 @@ spread = 180.0
 initial_velocity_min = 2.0
 initial_velocity_max = 5.0
 gravity = Vector3(0, 0, 0)
-alpha_curve = SubResource("CurveTexture_wmaqw")
+alpha_curve = SubResource("CurveTexture_42nno")
 
 [node name="Scene" type="Node2D"]
 z_index = -20
@@ -47,6 +47,7 @@ script = ExtResource("5_82lkn")
 metadata/_edit_lock_ = true
 
 [node name="Particles" type="GPUParticles2D" parent="."]
+z_index = 200
 position = Vector2(96, 64)
 amount = 12
 lifetime = 5.0

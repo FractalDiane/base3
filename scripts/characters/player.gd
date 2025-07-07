@@ -52,9 +52,9 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	if not PlayerStateSubsystem.is_movement_blocked() and not swinging_sword:
-		direction_management()
+	if not swinging_sword and not PlayerStateSubsystem.is_movement_blocked():
 		_animate_sprite()
+		direction_management()
 	
 	z_index = int(global_position.y)
 	
@@ -74,6 +74,7 @@ func _physics_process(_delta: float) -> void:
 			sound_sword.play()
 			swinging_sword = true
 	else:
+		motion = Vector2.ZERO
 		velocity = Vector2.ZERO
 		
 	move_and_slide()
@@ -122,23 +123,10 @@ func _animate_sprite() -> void:
 		
 	sprite.play(anim)
 
+
 func _on_disable_collision_changed(disable: bool) -> void:
 	collision.disabled = disable
 
-
-#func _on_sight_body_entered(body: Node2D) -> void:
-	#interactibles_in_sight.push_back(InteractibleInSight.new(body, position.distance_squared_to(body.position)))
-	#interactibles_in_sight.sort_custom(sort_interactibles)
-#
-#
-#func _on_sight_body_exited(body: Node2D) -> void:
-	#for i in range(len(interactibles_in_sight)):
-		#if interactibles_in_sight[i].interactible == body:
-			#interactibles_in_sight.remove_at(i)
-			#break
-			#
-	#interactibles_in_sight.sort_custom(sort_interactibles)
-	
 	
 func _on_sight_area_entered(area: Area2D) -> void:
 	var body := area.get_parent() as Node2D
@@ -158,6 +146,14 @@ func _on_sight_area_exited(area: Area2D) -> void:
 	
 func sort_interactibles(a: InteractibleInSight, b: InteractibleInSight):
 	return a.distance < b.distance
+	
+	
+func start_scroll() -> void:
+	sprite.play(DIR_ANIMATIONS[int(face)] + "_walk")
+	
+	
+func end_scroll() -> void:
+	sprite.play(DIR_ANIMATIONS[int(face)])
 	
 	
 func _on_event_finished(_event: InkStoryCompiled) -> void:

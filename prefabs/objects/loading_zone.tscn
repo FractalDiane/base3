@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8ob2oath2y73"]
+[gd_scene load_steps=3 format=3 uid="uid://c8ob2oath2y73"]
 
 [ext_resource type="Script" uid="uid://bvs4mvtsgf4af" path="res://scripts/objects/loading_zone.gd" id="1_e3ob2"]
+[ext_resource type="AudioStream" uid="uid://dorus2q1km5gr" path="res://audio/sfx/characters/transition.wav" id="2_40yn4"]
 
 [node name="LoadingZone" type="Area2D"]
 collision_layer = 0
@@ -8,6 +9,9 @@ collision_mask = 4
 script = ExtResource("1_e3ob2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="SoundTransition" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_40yn4")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
