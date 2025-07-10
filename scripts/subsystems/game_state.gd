@@ -21,6 +21,16 @@ func has_flag_by_name(flag_path: String) -> bool:
 	
 func has_n_flag_copies(flag: Flag, copies: int) -> bool:
 	return flags.get(flag, 0) >= copies
+	
+	
+func flag_count(flag: Flag) -> int:
+	return flags.get(flag, 0)
+	
+
+func flag_count_by_name(flag_path: String) -> int:
+	var flag := load("res://resources/flags/" + flag_path + ".tres") as Flag
+	return flag_count(flag)
+
 
 func add_flag(flag: Flag) -> void:
 	if flags.has(flag):

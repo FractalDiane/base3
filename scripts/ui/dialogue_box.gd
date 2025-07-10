@@ -4,9 +4,14 @@ extends NinePatchRect
 signal text_finished()
 signal close_animation_finished()
 
+const REGEX_TAGS := r"\[.+\](.+)\[.+\]"
+
 var open_anim_finished := false
 var current_text_finished := false
 var closing := false
+
+var regex_tags := RegEx.new()
+var text_length_no_tags := 0
 
 @onready var label := $Text as RichTextLabel
 
@@ -21,7 +26,7 @@ var closing := false
 func _process(_delta: float) -> void:
 	if open_anim_finished and not closing and Input.is_action_just_pressed(&"ui_accept"):
 		if not current_text_finished:
-			label.visible_characters = label.text.length()
+			label.visible_characters = text_length_no_tags
 			timer_text.stop()
 			current_text_finished = true
 		else:
@@ -29,9 +34,14 @@ func _process(_delta: float) -> void:
 
 
 func start(text: String, rect_size := Rect2i()) -> void:
+	if not regex_tags.is_valid():
+		regex_tags.compile(REGEX_TAGS)
+		
 	label.visible_characters = 0
 	label.text = text
 	current_text_finished = false
+	
+	text_length_no_tags = regex_tags.sub(text, "$1", true).length()
 	
 	if not open_anim_finished:
 		position = rect_size.position
@@ -67,7 +77,7 @@ func roll_text() -> void:
 	
 func _on_timer_text_timeout() -> void:
 	label.visible_characters += 1
-	if label.visible_characters == label.text.length():
+	if label.visible_characters == text_length_no_tags:
 		timer_text.stop()
 		current_text_finished = true
 		sound_text_finished.play()

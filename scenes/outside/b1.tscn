@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://e1g0dpmum8d5"]
+[gd_scene load_steps=33 format=4 uid="uid://e1g0dpmum8d5"]
 
 [ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_0nwv4"]
 [ext_resource type="PackedScene" uid="uid://cuqv0dpu1ibc8" path="res://prefabs/objects/loading_zone_manager.tscn" id="1_1jbd1"]
@@ -17,6 +17,9 @@
 [ext_resource type="Script" uid="uid://hggim5m2iuai" path="res://scripts/objects/music_manager.gd" id="16_4fw7t"]
 [ext_resource type="Texture2D" uid="uid://bidjoeimmcqvp" path="res://sprites/characters/monsters/demon.png" id="16_e22kl"]
 [ext_resource type="InkStoryCompiled" uid="uid://bidc83dmfl4xf" path="res://dialogue/dialogue_test_2.res" id="17_e22kl"]
+[ext_resource type="Texture2D" uid="uid://4jkxwmemsimq" path="res://sprites/characters/monsters/guy.png" id="18_wmaqw"]
+[ext_resource type="Script" uid="uid://ccxd8iwudme0i" path="res://scripts/enemies/enemy.gd" id="18_yusfm"]
+[ext_resource type="AudioStream" uid="uid://btn8ql15753uf" path="res://audio/sfx/combat/hurt.wav" id="20_8qqmj"]
 
 [sub_resource type="Resource" id="Resource_e22kl"]
 script = ExtResource("12_2erp4")
@@ -41,6 +44,77 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4fw7t"]
 size = Vector2(14, 10)
+
+[sub_resource type="Shader" id="Shader_8qqmj"]
+code = "shader_type canvas_item;
+
+uniform bool flash = false;
+
+void fragment() {
+	vec4 tex = texture(TEXTURE, UV);
+	COLOR.rgb = ((vec3(1.0) - tex.rgb) * float(flash)) + (tex.rgb * float(!flash));
+	COLOR.a = tex.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0rbww"]
+shader = SubResource("Shader_8qqmj")
+shader_parameter/flash = false
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8qqmj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_wmaqw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_0rbww"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:material:shader_parameter/flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_8qqmj"]
+resource_name = "flash"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:material:shader_parameter/flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0rbww"]
+_data = {
+&"RESET": SubResource("Animation_0rbww"),
+&"flash": SubResource("Animation_8qqmj")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qqmj"]
+size = Vector2(7, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0rbww"]
+size = Vector2(13, 16)
 
 [node name="Scene" type="Node2D"]
 z_index = -20
@@ -108,6 +182,37 @@ shape = SubResource("RectangleShape2D_4fw7t")
 [node name="InteractionComponent" parent="NPC" index="4"]
 interaction_event = ExtResource("17_e22kl")
 text_box_position = Rect2i(24, 48, 80, 48)
+
+[node name="Enemy" type="CharacterBody2D" parent="."]
+position = Vector2(16, 32)
+script = ExtResource("18_yusfm")
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Enemy"]
+material = SubResource("ShaderMaterial_0rbww")
+sprite_frames = SubResource("SpriteFrames_8qqmj")
+centered = false
+offset = Vector2(-6, -8)
+
+[node name="SoundHurt" type="AudioStreamPlayer" parent="Enemy"]
+stream = ExtResource("20_8qqmj")
+volume_db = -6.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
+libraries = {
+&"": SubResource("AnimationLibrary_0rbww")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(0.5, 5.5)
+shape = SubResource("RectangleShape2D_8qqmj")
+
+[node name="Hurtbox" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Hurtbox"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_0rbww")
+debug_color = Color(0.0199585, 0.851563, 0.0719337, 0.42)
 
 [editable path="EventTriggerVolume"]
 [editable path="NPC"]
