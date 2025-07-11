@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 @export var speed := 50.0
+@export var mirror := false
 
 const DIR_ANIMATIONS: Array[String] = [
 	"up",
@@ -21,6 +22,9 @@ var motion := Vector2()
 var face := Enums.Direction.Down
 
 var swinging_sword := false
+
+var real_player: Player = null
+var mirror_y := 0.0
 
 class InteractibleInSight:
 	var interactible: Node2D
@@ -50,6 +54,12 @@ func _ready() -> void:
 	PlayerStateSubsystem.disable_collision_changed.connect(_on_disable_collision_changed)
 	EventPlaybackSubsystem.event_finished.connect(_on_event_finished)
 	
+	if mirror:
+		mirror_y = get_parent().position.y
+		
+		var get_player := func(): real_player = get_tree().current_scene.get_node(^"Player")
+		get_player.call_deferred()
+	
 	
 func _process(_delta: float) -> void:
 	if not swinging_sword and not PlayerStateSubsystem.is_movement_blocked():
@@ -63,6 +73,8 @@ func _physics_process(_delta: float) -> void:
 	if not PlayerStateSubsystem.is_movement_blocked() and not swinging_sword:
 		motion.x = Input.get_axis(&"move_left", &"move_right")
 		motion.y = Input.get_axis(&"move_up", &"move_down")
+		if mirror:
+			motion.y *= -1
 		
 		velocity = motion.normalized() * speed
 		
@@ -78,6 +90,9 @@ func _physics_process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 		
 	move_and_slide()
+
+	if mirror and real_player != null:
+		position.x = real_player.position.x
 	
 
 func play_got_item_animation(item: Sprite2D) -> void:

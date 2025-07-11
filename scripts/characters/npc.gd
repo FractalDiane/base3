@@ -4,13 +4,14 @@ extends CharacterBody2D
 const DIRECTION_ANIMATIONS: Array[StringName] = [&"up", &"down", &"left", &"right"]
 
 @export var face_player_on_interact := true
+@export var z_index_y_offset := 0
 
 @onready var sprite := $Sprite as AnimatedSprite2D
 @onready var interaction_indicator := $InteractionIndicator as AnimatedSprite2D
 
 func _ready() -> void:
 	interaction_indicator.hide()
-	z_index = int(position.y)
+	z_index = int(position.y) + z_index_y_offset
 	
 	var collision := $CollisionShape2D as CollisionShape2D
 	var interact_collision := $InteractionArea/CollisionShape2D as CollisionShape2D

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://b3iqqh7fjjbqj"]
+[gd_scene load_steps=15 format=4 uid="uid://b3iqqh7fjjbqj"]
 
 [ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_pq6e7"]
 [ext_resource type="Script" uid="uid://hggim5m2iuai" path="res://scripts/objects/music_manager.gd" id="2_i8ubk"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" uid="uid://cw5pjvxl3m3ge" path="res://scripts/utils/editor_only.gd" id="5_jpyjq"]
 [ext_resource type="PackedScene" uid="uid://ier2fmcfi2e" path="res://prefabs/objects/player_start.tscn" id="6_i8ubk"]
 [ext_resource type="Script" uid="uid://bicrtabco5oqf" path="res://scripts/objects/loading_zone_manager.gd" id="7_gjjp0"]
+[ext_resource type="Texture2D" uid="uid://811df7cnv0uf" path="res://sprites/props/mirror.png" id="8_nevvk"]
+[ext_resource type="PackedScene" uid="uid://bnycdpejs82ko" path="res://prefabs/characters/player.tscn" id="9_jpyjq"]
+[ext_resource type="Texture2D" uid="uid://cb3xbn1uggamy" path="res://sprites/props/mirror_top.png" id="10_gcb4l"]
 
 [sub_resource type="Curve" id="Curve_gjjp0"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.498127, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -25,6 +28,9 @@ initial_velocity_max = 5.0
 gravity = Vector3(0, 0, 0)
 alpha_curve = SubResource("CurveTexture_gjjp0")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nevvk"]
+size = Vector2(12, 20)
+
 [node name="StartShack" type="Node2D"]
 script = ExtResource("1_pq6e7")
 
@@ -38,7 +44,7 @@ scene_down = "uid://cfpkb1hkc248r"
 metadata/_custom_type_script = "uid://bicrtabco5oqf"
 
 [node name="Tiles" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAACAAUAAAABAAEAAAADAAUAAAABAAEAAAAEAAUAAAABAAEAAAAFAAUAAAABAAEAAAAGAAUAAAABAAEAAAAHAAUAAAABAAEAAAAIAAUAAAABAAEAAAAJAAUAAAABAAEAAAABAAEAAAADAAMAAAABAAIAAAADAAQAAAABAAMAAAABAAEAAAABAAQAAAABAAEAAAABAAUAAAABAAEAAAACAAEAAAADAAMAAAADAAEAAAADAAMAAAAEAAEAAAADAAMAAAAFAAEAAAADAAMAAAAGAAEAAAADAAMAAAAHAAEAAAADAAMAAAAIAAEAAAADAAMAAAAJAAEAAAADAAMAAAAKAAEAAAADAAMAAAAKAAIAAAADAAQAAAAJAAIAAAADAAQAAAAIAAIAAAADAAQAAAAHAAIAAAADAAQAAAAGAAIAAAADAAQAAAAFAAIAAAADAAQAAAAEAAIAAAADAAQAAAADAAIAAAADAAQAAAACAAIAAAADAAQAAAACAAMAAAABAAEAAAACAAQAAAABAAEAAAADAAQAAAABAAEAAAAEAAQAAAABAAEAAAAFAAQAAAABAAEAAAAGAAQAAAABAAEAAAAGAAMAAAABAAEAAAAHAAMAAAABAAEAAAAIAAMAAAABAAEAAAAJAAMAAAABAAEAAAAKAAMAAAABAAEAAAAKAAQAAAABAAEAAAAKAAUAAAABAAEAAAAIAAQAAAABAAEAAAAHAAQAAAABAAEAAAAFAAMAAAABAAEAAAAEAAMAAAABAAEAAAADAAMAAAABAAEAAAAJAAQAAAABAAEAAAAFAAYAAAABAAEAAAAGAAYAAAABAAEAAAAKAAAAAAADAAIAAAAJAAAAAAADAAIAAAAIAAAAAAADAAIAAAAHAAAAAAADAAIAAAAGAAAAAAADAAIAAAAFAAAAAAADAAIAAAAEAAAAAAADAAIAAAADAAAAAAADAAIAAAACAAAAAAADAAIAAAABAAAAAAADAAIAAAAAAAEAAAACAAMAAAAAAAAAAAACAAIAAAALAAAAAAAEAAIAAAALAAEAAAAEAAMAAAAAAAIAAAACAAQAAAALAAIAAAAEAAQAAAAIAAYAAAABAAEAAAAJAAYAAAABAAEAAAAHAAYAAAABAAEAAAAEAAYAAAABAAEAAAADAAYAAAABAAEAAAACAAYAAAABAAEAAAABAAYAAAABAAEAAAAKAAYAAAABAAEAAAA=")
+tile_map_data = PackedByteArray("AAACAAUAAAACAAEAAAADAAUAAAACAAEAAAAEAAUAAAACAAEAAAAFAAUAAAACAAEAAAAGAAUAAAACAAEAAAAHAAUAAAACAAEAAAAIAAUAAAACAAEAAAAJAAUAAAACAAEAAAABAAEAAAADAAMAAAABAAIAAAADAAQAAAABAAMAAAACAAEAAAABAAQAAAACAAEAAAABAAUAAAACAAEAAAACAAEAAAADAAMAAAADAAEAAAADAAMAAAAEAAEAAAADAAMAAAAFAAEAAAADAAMAAAAGAAEAAAADAAMAAAAHAAEAAAADAAMAAAAIAAEAAAADAAMAAAAJAAEAAAADAAMAAAAKAAEAAAADAAMAAAAKAAIAAAADAAQAAAAJAAIAAAADAAQAAAAIAAIAAAADAAQAAAAHAAIAAAADAAQAAAAGAAIAAAADAAQAAAAFAAIAAAADAAQAAAAEAAIAAAADAAQAAAADAAIAAAADAAQAAAACAAIAAAADAAQAAAACAAMAAAACAAEAAAACAAQAAAACAAEAAAADAAQAAAACAAEAAAAEAAQAAAACAAEAAAAFAAQAAAACAAEAAAAGAAQAAAACAAEAAAAGAAMAAAACAAEAAAAHAAMAAAACAAEAAAAIAAMAAAACAAEAAAAJAAMAAAACAAEAAAAKAAMAAAACAAEAAAAKAAQAAAACAAEAAAAKAAUAAAACAAEAAAAIAAQAAAACAAEAAAAHAAQAAAACAAEAAAAFAAMAAAACAAEAAAAEAAMAAAACAAEAAAADAAMAAAACAAEAAAAJAAQAAAACAAEAAAAFAAYAAAACAAEAAAAGAAYAAAACAAEAAAAKAAAAAAADAAIAAAAJAAAAAAADAAIAAAAIAAAAAAADAAIAAAAHAAAAAAADAAIAAAAGAAAAAAADAAIAAAAFAAAAAAADAAIAAAAEAAAAAAADAAIAAAADAAAAAAADAAIAAAACAAAAAAADAAIAAAABAAAAAAADAAIAAAAAAAEAAAACAAMAAAAAAAAAAAACAAIAAAALAAAAAAAEAAIAAAALAAEAAAAEAAMAAAAAAAIAAAACAAQAAAALAAIAAAAEAAQAAAAIAAYAAAACAAEAAAAJAAYAAAACAAEAAAAHAAYAAAACAAEAAAAEAAYAAAACAAEAAAADAAYAAAACAAEAAAACAAYAAAACAAEAAAABAAYAAAACAAEAAAAKAAYAAAACAAEAAAA=")
 tile_set = ExtResource("3_gjjp0")
 
 [node name="TilesUpper" type="TileMapLayer" parent="."]
@@ -63,3 +69,38 @@ lifetime = 5.0
 preprocess = 5.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_nevvk")
+
+[node name="Mirror" type="StaticBody2D" parent="."]
+position = Vector2(106, 30)
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="Sprite2D" parent="Mirror"]
+texture = ExtResource("8_nevvk")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mirror"]
+position = Vector2(6, 10)
+shape = SubResource("RectangleShape2D_nevvk")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Mirror"]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 11.0
+offset_bottom = 19.0
+
+[node name="SubViewport" type="SubViewport" parent="Mirror/SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(10, 18)
+render_target_update_mode = 4
+
+[node name="Node2D" type="Node2D" parent="Mirror/SubViewportContainer/SubViewport"]
+position = Vector2(-107, -31)
+
+[node name="Player" parent="Mirror/SubViewportContainer/SubViewport/Node2D" instance=ExtResource("9_jpyjq")]
+position = Vector2(112, 41)
+mirror = true
+
+[node name="SpriteTop" type="Sprite2D" parent="Mirror"]
+texture = ExtResource("10_gcb4l")
+centered = false

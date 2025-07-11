@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://cnyqsajwfxif3"]
+[gd_scene load_steps=16 format=4 uid="uid://cnyqsajwfxif3"]
 
 [ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_wkif8"]
 [ext_resource type="PackedScene" uid="uid://cuqv0dpu1ibc8" path="res://prefabs/objects/loading_zone_manager.tscn" id="2_1rirh"]
@@ -29,6 +29,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48sj4"]
 size = Vector2(6, 3)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7cg8"]
+size = Vector2(64, 24)
+
 [node name="Scene" type="Node2D"]
 z_index = -20
 script = ExtResource("1_wkif8")
@@ -54,8 +57,14 @@ tile_map_data = PackedByteArray("AAAGAAIAAAACAAIAAAAGAAMAAAACAAMAAAAGAAQAAAACAAQ
 tile_set = ExtResource("3_iyn2y")
 
 [node name="TilesUpper2" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAHAAQAAAABAAMAAAAGAAIAAAACAAQAAAAHAAIAAAADAAQAAAAIAAIAAAADAAQAAAAIAAEAAAADAAIAAAAHAAEAAAADAAIAAAAGAAEAAAACAAIAAAAJAAIAAAAEAAQAAAAJAAEAAAAEAAIAAAA=")
+tile_map_data = PackedByteArray("AAAHAAQAAAABAAMAAAAGAAIAAAACAAQAAAAHAAIAAAADAAQAAAAIAAIAAAADAAQAAAAJAAIAAAAEAAQAAAA=")
 tile_set = ExtResource("3_iyn2y")
+
+[node name="TilesUpper3" type="TileMapLayer" parent="."]
+z_index = 24
+tile_map_data = PackedByteArray("AAAHAAQAAAABAAMAAAAGAAEAAAACAAIAAAAHAAEAAAADAAIAAAAIAAEAAAADAAIAAAAJAAEAAAAEAAIAAAA=")
+tile_set = ExtResource("3_iyn2y")
+collision_enabled = false
 
 [node name="HUD?" type="Sprite2D" parent="."]
 position = Vector2(0, 112)
@@ -74,27 +83,34 @@ target_direction = 0
 position = Vector2(8, -12)
 shape = SubResource("RectangleShape2D_xbpam")
 
-[node name="NPC" parent="." instance=ExtResource("9_xbpam")]
+[node name="NPCJara" parent="." instance=ExtResource("9_xbpam")]
 position = Vector2(79, 64)
+z_index_y_offset = 6
 
-[node name="Sprite" parent="NPC" index="0"]
+[node name="Sprite" parent="NPCJara" index="0"]
 sprite_frames = SubResource("SpriteFrames_xbpam")
 animation = &"down"
 centered = false
 
-[node name="InteractionIndicator" parent="NPC" index="1"]
+[node name="InteractionIndicator" parent="NPCJara" index="1"]
 position = Vector2(4, -6)
 
-[node name="CollisionShape2D" parent="NPC" index="2"]
+[node name="CollisionShape2D" parent="NPCJara" index="2"]
 position = Vector2(8, 13.5)
 shape = SubResource("RectangleShape2D_48sj4")
 
-[node name="CollisionShape2D" parent="NPC/InteractionArea" index="0"]
+[node name="CollisionShape2D" parent="NPCJara/InteractionArea" index="0"]
 position = Vector2(8, 8)
 
-[node name="InteractionComponent" parent="NPC" index="4"]
+[node name="InteractionComponent" parent="NPCJara" index="4"]
 interaction_event = ExtResource("11_v7cg8")
 text_box_position = Rect2i(16, 8, 112, 48)
 
+[node name="TopWall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
+position = Vector2(128, 36)
+shape = SubResource("RectangleShape2D_v7cg8")
+
 [editable path="LoadingZone"]
-[editable path="NPC"]
+[editable path="NPCJara"]

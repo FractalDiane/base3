@@ -117,6 +117,7 @@ texture = ExtResource("1_iadhu")
 3:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:5/0/terrains_peering_bit/right_side = 0
 3:5/0/terrains_peering_bit/left_side = 0
+2:1/0 = 0
 
 [resource]
 physics_layer_0/collision_layer = 1
