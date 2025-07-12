@@ -1,11 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2qv7ysrtxu0k"]
+[gd_scene load_steps=9 format=3 uid="uid://d2qv7ysrtxu0k"]
 
 [ext_resource type="Script" uid="uid://dwteg437sw547" path="res://scripts/objects/mirror.gd" id="1_u56ib"]
 [ext_resource type="Texture2D" uid="uid://811df7cnv0uf" path="res://sprites/props/mirror.png" id="2_q7lgw"]
 [ext_resource type="PackedScene" uid="uid://bnycdpejs82ko" path="res://prefabs/characters/player.tscn" id="3_40c4i"]
 [ext_resource type="Texture2D" uid="uid://cb3xbn1uggamy" path="res://sprites/props/mirror_top.png" id="4_slh87"]
+[ext_resource type="Script" uid="uid://ct5i3iw5prl82" path="res://scripts/components/interaction_component.gd" id="5_q7lgw"]
+[ext_resource type="InkStoryCompiled" uid="uid://cnby5n2vuskry" path="res://dialogue/objects/mirror.res" id="6_40c4i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nevvk"]
+size = Vector2(12, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q7lgw"]
 size = Vector2(12, 20)
 
 [node name="Mirror" type="StaticBody2D"]
@@ -19,6 +24,14 @@ centered = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, 10)
 shape = SubResource("RectangleShape2D_nevvk")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(6, 10)
+shape = SubResource("RectangleShape2D_q7lgw")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_left = 1.0
@@ -50,3 +63,9 @@ mirror = true
 [node name="SpriteTop" type="Sprite2D" parent="."]
 texture = ExtResource("4_slh87")
 centered = false
+
+[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("interaction_area")]
+script = ExtResource("5_q7lgw")
+interaction_area = NodePath("../InteractArea")
+interaction_event = ExtResource("6_40c4i")
+metadata/_custom_type_script = "uid://ct5i3iw5prl82"

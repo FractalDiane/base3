@@ -66,4 +66,9 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_nevvk")
 
 [node name="Mirror" parent="." instance=ExtResource("8_nevvk")]
-position = Vector2(112, 32)
+position = Vector2(112, 31)
+
+[node name="InteractionComponent" parent="Mirror" index="5"]
+text_box_position = Rect2i(24, 24, 80, 36)
+
+[editable path="Mirror"]

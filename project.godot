@@ -12,6 +12,7 @@ config_version=5
 
 config/name="BASE-3"
 run/main_scene="uid://e1g0dpmum8d5"
+config/use_custom_user_dir=true
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false

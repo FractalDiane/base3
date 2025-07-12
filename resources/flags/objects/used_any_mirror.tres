@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Flag" load_steps=2 format=3 uid="uid://bx0g88x61et5d"]
+
+[ext_resource type="Script" uid="uid://vna7cn7oar35" path="res://scripts/resources/flag.gd" id="1_3dpyn"]
+
+[resource]
+script = ExtResource("1_3dpyn")
+metadata/_custom_type_script = "uid://vna7cn7oar35"

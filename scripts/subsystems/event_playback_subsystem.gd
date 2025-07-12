@@ -9,7 +9,12 @@ func play_event(event: InkStoryCompiled, caller: Node, text_box_size := Rect2i()
 		
 		PlayerStateSubsystem.push_block_movement_source()
 		
-		player.event_finished.connect(_on_event_finished)
+		# it just gets destroyed immediately if there's no text in it
+		if not player.is_queued_for_deletion():
+			player.event_finished.connect(_on_event_finished)
+		else:
+			_on_event_finished(event, player.event_to_play_after)
+			
 		return player
 	else:
 		return null

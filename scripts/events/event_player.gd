@@ -65,20 +65,25 @@ func continue_story() -> void:
 				var remove_dialogue := execute_tag(next_tags.pop_front())
 				if remove_dialogue and current_dialogue != null:
 					current_dialogue.play_close_animation()
-					#current_dialogue.close_animation_finished.connect()
+					current_dialogue.close_animation_finished.connect(_on_dialogue_finished.bind(true))
 					current_dialogue = null
 					
 				return
 				
-			if next_text.is_empty():
-				_on_dialogue_finished()
+			if next_text.is_empty() or next_text == "@":
+				if current_dialogue != null:
+					current_dialogue.play_close_animation()
+					current_dialogue.close_animation_finished.connect(_on_dialogue_finished.bind(true))
+				else:
+					_on_dialogue_finished(false)
+					
 				return
 				
 			if current_dialogue == null:
 				current_dialogue = DIALOGUE_BOX.instantiate() as DialogueBox
 				get_tree().current_scene.add_child(current_dialogue)
 				#HUD.add_dialogue_child(current_dialogue)
-				current_dialogue.text_finished.connect(_on_dialogue_finished)
+				current_dialogue.text_finished.connect(_on_dialogue_finished.bind(false))
 
 			current_dialogue.start(next_text, current_dialogue_size)
 		CONTENT_MODE_CHOICE:
@@ -114,7 +119,10 @@ func end_story_post_dialogue() -> void:
 	queue_free()
 	
 	
-func _on_dialogue_finished() -> void:
+func _on_dialogue_finished(closed: bool) -> void:
+	if closed:
+		current_dialogue = null
+		
 	fetch_next_story_content()
 	continue_story()
 	

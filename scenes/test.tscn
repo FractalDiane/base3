@@ -8,14 +8,17 @@
 [sub_resource type="GDScript" id="GDScript_74lek"]
 script/source = "extends Node2D
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed(\"move_down\"):
-		EventPlaybackSubsystem.play_event(preload(\"res://dialogue/dialogue_test.res\"), self)
+func save() -> void:
+	print(\"GAME SAVED\")
 
-func _on_timer_timeout() -> void:
-	#$DialogueBox.start(\"I regret to inform you this is a test BOOOOOOOOOM\", Rect2i(32, 48, 128, 48))
-	pass
-	EventPlaybackSubsystem.play_event(preload(\"res://dialogue/dialogue_test.res\"), self)
+func _ready() -> void:
+	var story := InkStory.new()
+	story.load_compiled_file(preload(\"res://dialogue/dialogue_test_3.res\"))
+	story.bind_external_function(&\"save_game_test\", save, false)
+	
+	print(story.continue_story())
+	print(story.continue_story())
+	print(story.continue_story())
 "
 
 [node name="Test" type="Node2D"]
