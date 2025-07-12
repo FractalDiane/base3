@@ -55,7 +55,7 @@ func _ready() -> void:
 	EventPlaybackSubsystem.event_finished.connect(_on_event_finished)
 	
 	if mirror:
-		mirror_y = get_parent().position.y
+		mirror_y = (get_tree().current_scene.get_node(^"Mirror") as Node2D).position.y + 13
 		
 		var get_player := func(): real_player = get_tree().current_scene.get_node(^"Player")
 		get_player.call_deferred()
@@ -93,6 +93,10 @@ func _physics_process(_delta: float) -> void:
 
 	if mirror and real_player != null:
 		position.x = real_player.position.x
+		#position.y = real_player.position.y
+		position.y = mirror_y + (mirror_y - real_player.position.y)
+		#print()
+		#position.y = mirror_y + (mirror_y - real_player.position.y)
 	
 
 func play_got_item_animation(item: Sprite2D) -> void:
