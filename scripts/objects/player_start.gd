@@ -8,6 +8,7 @@ func _ready() -> void:
 		player.position = position
 		get_tree().current_scene.add_child.call_deferred(player)
 		
-		(get_tree().current_scene.get_node(^"LoadingZoneManager") as LoadingZoneManager).run()
+		(get_tree().current_scene as BaseScene).transitioned_to.emit()
+		#(get_tree().current_scene.get_node(^"LoadingZoneManager") as LoadingZoneManager).run()
 		
 	queue_free()

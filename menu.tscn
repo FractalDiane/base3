@@ -1,0 +1,402 @@
+[gd_scene load_steps=20 format=3 uid="uid://btcyabwtdibxd"]
+
+[ext_resource type="Script" uid="uid://dly8ppnttl4c2" path="res://scripts/scenes/menu.gd" id="1_4hy44"]
+[ext_resource type="Texture2D" uid="uid://14sp5ukigd4a" path="res://sprites/logo.png" id="1_lti8b"]
+[ext_resource type="AudioStream" uid="uid://dg8lsy7qgydbh" path="res://audio/sfx/noise.wav" id="2_ouk20"]
+[ext_resource type="FontFile" uid="uid://blbxayvxa6x6e" path="res://fonts/QuinqueFive5.ttf" id="3_mae5d"]
+
+[sub_resource type="Shader" id="Shader_lti8b"]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise_texture : filter_nearest;
+uniform float blend : hint_range(0.0, 1.0);
+uniform float alpha : hint_range(0.0, 1.0);
+
+void fragment() {
+	vec4 tex = texture(TEXTURE, UV);
+	vec4 noise_tex = texture(noise_texture, UV);
+	COLOR.rgb = mix(noise_tex.rgb, vec3(1.0), blend);
+	COLOR.a = tex.a * alpha;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lti8b"]
+noise_type = 0
+seed = 15
+frequency = 0.4473
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lti8b"]
+width = 142
+height = 36
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_lti8b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ouk20"]
+shader = SubResource("Shader_lti8b")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_lti8b")
+shader_parameter/blend = 0.0
+shader_parameter/alpha = 1.0
+
+[sub_resource type="Animation" id="Animation_4hy44"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:material:shader_parameter/blend")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SoundNoise:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Options/Options:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 64)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Cursor:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Options:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mae5d"]
+resource_name = "fadein"
+length = 5.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:material:shader_parameter/blend")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("SoundNoise:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2.7, 5),
+"transitions": PackedFloat32Array(1, 5.66, 0.176678, 1),
+"update": 0,
+"values": [-80.0, -80.0, 0.0, -80.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("Options/Options:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4, 5),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(64, 132), Vector2(64, 132), Vector2(64, 64)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Cursor:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 5, 5.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Options:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 4, 5),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 80), Vector2(0, 80), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4hy44"]
+_data = {
+&"RESET": SubResource("Animation_4hy44"),
+&"fadein": SubResource("Animation_mae5d")
+}
+
+[sub_resource type="Animation" id="Animation_ouk20"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:material:shader_parameter/noise_texture:noise:seed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+
+[sub_resource type="Animation" id="Animation_lti8b"]
+resource_name = "noise"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:material:shader_parameter/noise_texture:noise:seed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [15, 67]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ouk20"]
+_data = {
+&"RESET": SubResource("Animation_ouk20"),
+&"noise": SubResource("Animation_lti8b")
+}
+
+[sub_resource type="Animation" id="Animation_l48gv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cursor:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ytr4m"]
+resource_name = "select"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cursor:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ecwwl"]
+_data = {
+&"RESET": SubResource("Animation_l48gv"),
+&"select": SubResource("Animation_ytr4m")
+}
+
+[sub_resource type="Shader" id="Shader_4hy44"]
+code = "shader_type canvas_item;
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture;
+
+void fragment() {
+	COLOR.rgb = vec3(1.0) - texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ytr4m"]
+shader = SubResource("Shader_4hy44")
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4hy44")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Logo" type="TextureRect" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ouk20")
+layout_mode = 0
+offset_left = 25.0
+offset_top = 16.0
+offset_right = 168.0
+offset_bottom = 56.0
+texture = ExtResource("1_lti8b")
+stretch_mode = 2
+
+[node name="AnimationPlayerFadein" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4hy44")
+}
+autoplay = "fadein"
+
+[node name="AnimationPlayerNoise" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ouk20")
+}
+autoplay = "noise"
+speed_scale = 0.5
+
+[node name="AnimationPlayerSelect" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ecwwl")
+}
+speed_scale = 5.0
+
+[node name="SoundNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ouk20")
+
+[node name="Options" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options" type="VBoxContainer" parent="Options"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionNewGame" type="Label" parent="Options/Options"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mae5d")
+theme_override_font_sizes/font_size = 5
+text = "New Game"
+horizontal_alignment = 1
+
+[node name="OptionContinue" type="Label" parent="Options/Options"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mae5d")
+theme_override_font_sizes/font_size = 5
+text = "Continue"
+horizontal_alignment = 1
+
+[node name="OptionOptions" type="Label" parent="Options/Options"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mae5d")
+theme_override_font_sizes/font_size = 5
+text = "Options"
+horizontal_alignment = 1
+
+[node name="OptionCredits" type="Label" parent="Options/Options"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mae5d")
+theme_override_font_sizes/font_size = 5
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="OptionExit" type="Label" parent="Options/Options"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mae5d")
+theme_override_font_sizes/font_size = 5
+text = "Exit"
+horizontal_alignment = 1
+
+[node name="Cursor" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ytr4m")
+layout_mode = 0
+offset_left = 48.0
+offset_top = 64.0
+offset_right = 144.0
+offset_bottom = 71.0
+pivot_offset = Vector2(0, 3.5)
+
+[connection signal="animation_finished" from="AnimationPlayerFadein" to="." method="_on_animation_player_fadein_animation_finished"]

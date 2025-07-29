@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://e1g0dpmum8d5"]
+[gd_scene load_steps=34 format=4 uid="uid://e1g0dpmum8d5"]
 
 [ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_0nwv4"]
 [ext_resource type="PackedScene" uid="uid://cuqv0dpu1ibc8" path="res://prefabs/objects/loading_zone_manager.tscn" id="1_1jbd1"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bxgghyqibe8g3" path="res://sprites/items/sword3.png" id="10_qgr3a"]
 [ext_resource type="Script" uid="uid://cm4yiqpidvb5c" path="res://scripts/components/conditional_component.gd" id="11_l6esi"]
 [ext_resource type="Script" uid="uid://bq01wsjt8vge1" path="res://scripts/resources/flag_requirement.gd" id="12_2erp4"]
-[ext_resource type="Resource" uid="uid://bon5r4esqa1yc" path="res://resources/flags/got_sword3.tres" id="13_4fw7t"]
+[ext_resource type="Resource" uid="uid://bon5r4esqa1yc" path="res://resources/flags/objects/got_sword3.tres" id="13_4fw7t"]
 [ext_resource type="InkStoryCompiled" uid="uid://c8rxlbseygwvb" path="res://dialogue/selectors/selector_sword3.res" id="15_2erp4"]
 [ext_resource type="PackedScene" uid="uid://crqij3yxq457a" path="res://prefabs/characters/npc.tscn" id="15_4fw7t"]
 [ext_resource type="Script" uid="uid://hggim5m2iuai" path="res://scripts/objects/music_manager.gd" id="16_4fw7t"]
@@ -30,6 +30,13 @@ metadata/_custom_type_script = "uid://bq01wsjt8vge1"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhq45"]
 size = Vector2(8, 18)
+
+[sub_resource type="Resource" id="Resource_8qqmj"]
+script = ExtResource("12_2erp4")
+flag = ExtResource("13_4fw7t")
+copies_required = 1
+invert_requirement = true
+metadata/_custom_type_script = "uid://bq01wsjt8vge1"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e22kl"]
 animations = [{
@@ -164,6 +171,11 @@ shape = SubResource("RectangleShape2D_bhq45")
 [node name="InteractionComponent" parent="EventTriggerVolume" index="1"]
 interaction_selector = ExtResource("15_2erp4")
 text_box_position = Rect2i(32, 64, 80, 36)
+
+[node name="ConditionalComponent" type="Node" parent="EventTriggerVolume"]
+script = ExtResource("11_l6esi")
+flags_required = Array[ExtResource("12_2erp4")]([SubResource("Resource_8qqmj")])
+metadata/_custom_type_script = "uid://cm4yiqpidvb5c"
 
 [node name="NPC" parent="." instance=ExtResource("15_4fw7t")]
 position = Vector2(157, 31)

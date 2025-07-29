@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://b3iqqh7fjjbqj"]
+[gd_scene load_steps=21 format=4 uid="uid://b3iqqh7fjjbqj"]
 
 [ext_resource type="Script" uid="uid://6ay7dkaqvy72" path="res://scripts/scenes/base_scene.gd" id="1_pq6e7"]
 [ext_resource type="Script" uid="uid://hggim5m2iuai" path="res://scripts/objects/music_manager.gd" id="2_i8ubk"]
@@ -7,7 +7,10 @@
 [ext_resource type="Script" uid="uid://cw5pjvxl3m3ge" path="res://scripts/utils/editor_only.gd" id="5_jpyjq"]
 [ext_resource type="PackedScene" uid="uid://ier2fmcfi2e" path="res://prefabs/objects/player_start.tscn" id="6_i8ubk"]
 [ext_resource type="Script" uid="uid://bicrtabco5oqf" path="res://scripts/objects/loading_zone_manager.gd" id="7_gjjp0"]
-[ext_resource type="PackedScene" uid="uid://d2qv7ysrtxu0k" path="res://prefabs/objects/mirror.tscn" id="8_nevvk"]
+[ext_resource type="Texture2D" uid="uid://drgngfrwf5oop" path="res://sprites/props/savepoint1.png" id="8_nevvk"]
+[ext_resource type="Texture2D" uid="uid://coypxj1l8ok6u" path="res://sprites/props/savepoint2.png" id="9_jpyjq"]
+[ext_resource type="Script" uid="uid://ct5i3iw5prl82" path="res://scripts/components/interaction_component.gd" id="10_gcb4l"]
+[ext_resource type="InkStoryCompiled" uid="uid://84eeo0uovg3k" path="res://dialogue/objects/savepoint.res" id="11_nof8j"]
 
 [sub_resource type="Curve" id="Curve_gjjp0"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.498127, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -25,6 +28,62 @@ initial_velocity_min = 2.0
 initial_velocity_max = 5.0
 gravity = Vector3(0, 0, 0)
 alpha_curve = SubResource("CurveTexture_gjjp0")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gcb4l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_jpyjq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="Animation" id="Animation_gcb4l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -9)]
+}
+
+[sub_resource type="Animation" id="Animation_jpyjq"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.03333, 2),
+"transitions": PackedFloat32Array(0.5, 2, 0.5),
+"update": 0,
+"values": [Vector2(0, -9), Vector2(0, -12), Vector2(0, -9)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gcb4l"]
+_data = {
+&"RESET": SubResource("Animation_gcb4l"),
+&"idle": SubResource("Animation_jpyjq")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jpyjq"]
+size = Vector2(10, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gcb4l"]
+size = Vector2(10, 14)
 
 [node name="StartShack" type="Node2D"]
 script = ExtResource("1_pq6e7")
@@ -65,10 +124,41 @@ preprocess = 5.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_nevvk")
 
-[node name="Mirror" parent="." instance=ExtResource("8_nevvk")]
-position = Vector2(112, 31)
+[node name="SavePoint" type="StaticBody2D" parent="."]
+position = Vector2(115, 38)
+metadata/_edit_group_ = true
 
-[node name="InteractionComponent" parent="Mirror" index="5"]
-text_box_position = Rect2i(24, 24, 80, 36)
+[node name="Sprite" type="Sprite2D" parent="SavePoint"]
+texture = ExtResource("8_nevvk")
+centered = false
 
-[editable path="Mirror"]
+[node name="Sprite2" type="AnimatedSprite2D" parent="SavePoint"]
+position = Vector2(0, -9)
+sprite_frames = SubResource("SpriteFrames_gcb4l")
+autoplay = "default"
+frame_progress = 0.710612
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SavePoint"]
+libraries = {
+&"": SubResource("AnimationLibrary_gcb4l")
+}
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint"]
+position = Vector2(5, 7.5)
+shape = SubResource("RectangleShape2D_jpyjq")
+
+[node name="InteractArea" type="Area2D" parent="SavePoint"]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint/InteractArea"]
+position = Vector2(5, 5)
+shape = SubResource("RectangleShape2D_gcb4l")
+
+[node name="InteractionComponent" type="Node" parent="SavePoint" node_paths=PackedStringArray("interaction_area")]
+script = ExtResource("10_gcb4l")
+interaction_area = NodePath("../InteractArea")
+interaction_event = ExtResource("11_nof8j")
+metadata/_custom_type_script = "uid://ct5i3iw5prl82"

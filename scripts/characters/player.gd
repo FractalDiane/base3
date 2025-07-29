@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 @export var speed := 50.0
 @export var mirror := false
+@export var mirror_parent: Node2D = null
 
 const DIR_ANIMATIONS: Array[String] = [
 	"up",
@@ -55,11 +56,8 @@ func _ready() -> void:
 	EventPlaybackSubsystem.event_finished.connect(_on_event_finished)
 	
 	if mirror:
-		mirror_y = (get_tree().current_scene.get_node(^"Mirror") as Node2D).position.y + 13
+		(mirror_parent.get_parent() as BaseScene).transitioned_to.connect(mirror_setup)
 		
-		var get_player := func(): real_player = get_tree().current_scene.get_node(^"Player")
-		get_player.call_deferred()
-	
 	
 func _process(_delta: float) -> void:
 	if not swinging_sword and not PlayerStateSubsystem.is_movement_blocked():
@@ -183,3 +181,10 @@ func _on_event_finished(_event: InkStoryCompiled) -> void:
 func _on_sprite_animation_finished() -> void:
 	if sprite.animation.ends_with("sword"):
 		swinging_sword = false
+
+
+func mirror_setup() -> void:
+	mirror_y = (get_tree().current_scene.get_node(^"Mirror") as Node2D).position.y + 13
+		
+	var get_player := func(): real_player = get_tree().current_scene.get_node(^"Player")
+	get_player.call_deferred()

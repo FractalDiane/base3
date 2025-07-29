@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://267vnt8lmiog"]
+[gd_scene load_steps=19 format=3 uid="uid://267vnt8lmiog"]
 
 [ext_resource type="Texture2D" uid="uid://b0npg1055smae" path="res://sprites/ui/ui.png" id="1_2odaw"]
 [ext_resource type="Script" uid="uid://84irekq3v83o" path="res://scripts/ui/hud.gd" id="1_halsq"]
 [ext_resource type="Texture2D" uid="uid://1bvqoodd5uyi" path="res://sprites/ui/life.png" id="2_15m52"]
 [ext_resource type="Texture2D" uid="uid://ch0efrs4xh6xt" path="res://sprites/ui/corr.png" id="3_cxp5x"]
 [ext_resource type="FontFile" uid="uid://blbxayvxa6x6e" path="res://fonts/QuinqueFive5.ttf" id="4_ektdj"]
+[ext_resource type="Texture2D" uid="uid://bxgghyqibe8g3" path="res://sprites/items/sword3.png" id="6_jtpgg"]
+[ext_resource type="FontFile" uid="uid://bg81w4mpegr0l" path="res://fonts/QuinqueFive5a.ttf" id="7_mi8tf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxp5x"]
 bg_color = Color(0, 0, 0, 1)
@@ -35,6 +37,7 @@ fractal_type = 0
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ektdj"]
 width = 18
 height = 6
+generate_mipmaps = false
 color_ramp = SubResource("Gradient_cxp5x")
 noise = SubResource("FastNoiseLite_halsq")
 
@@ -206,3 +209,29 @@ libraries = {
 &"": SubResource("AnimationLibrary_halsq")
 }
 autoplay = "noise"
+
+[node name="Sword" type="Control" parent="HUD/Base"]
+visible = false
+anchors_preset = 0
+offset_top = -112.0
+offset_right = 40.0
+offset_bottom = -72.0
+
+[node name="SwordIcon" type="TextureRect" parent="HUD/Base/Sword"]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 116.0
+offset_right = 123.0
+offset_bottom = 132.0
+rotation = 1.5708
+texture = ExtResource("6_jtpgg")
+stretch_mode = 2
+
+[node name="SwordText" type="Label" parent="HUD/Base/Sword"]
+offset_left = 117.0
+offset_top = 119.0
+offset_right = 129.0
+offset_bottom = 126.0
+theme_override_fonts/font = ExtResource("7_mi8tf")
+theme_override_font_sizes/font_size = 5
+text = "1"

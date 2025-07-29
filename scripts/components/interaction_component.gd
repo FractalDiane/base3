@@ -35,6 +35,8 @@ func interact(player_direction: Enums.Direction) -> void:
 	if event != null:
 		event.event_finished.connect(interaction_finished.emit.unbind(2))
 		interaction_started.emit(player_direction)
+	elif interaction_event != null:
+		interaction_finished.emit()
 
 
 func _on_interaction_area_area_entered(_area: Area2D) -> void:
